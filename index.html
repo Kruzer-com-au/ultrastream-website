@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>UltraStream — Creators and fans grow together</title>
+<meta name="description" content="The only streaming platform where creators and fans grow together. Engineered on a reverse gifting model: viewers tip creators, creators gift their fans back." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Permanent+Marker&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --red:#D80A00;
+    --burnt:#E15900;
+    --orange:#FF7F00;
+    --gold:#F4B545;
+    --black:#000000;
+    --ink:#0a0a0b;
+    --panel:#111114;
+    --panel-2:#17171b;
+    --line:rgba(255,255,255,.10);
+    --line-strong:rgba(255,255,255,.18);
+    --white:#ffffff;
+    --muted:#a7a7ad;
+    --muted-2:#77777e;
+    --grad:linear-gradient(135deg,var(--red) 0%,var(--burnt) 45%,var(--orange) 78%,var(--gold) 100%);
+    --grad-soft:linear-gradient(135deg,var(--orange),var(--gold));
+    --font-display:'Anton',system-ui,sans-serif;
+    --font-body:'Inter',system-ui,sans-serif;
+    --font-mono:'JetBrains Mono',ui-monospace,monospace;
+    --font-marker:'Permanent Marker',cursive;
+    --maxw:1200px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--font-body);
+    background:var(--ink);
+    color:var(--white);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--gold);font-weight:500;
+  }
+  .display{font-family:var(--font-display);font-weight:400;letter-spacing:.5px;line-height:.98;text-transform:none}
+  .mono{font-family:var(--font-mono)}
+  h1,h2,h3{font-family:var(--font-display);font-weight:400;line-height:1;letter-spacing:.5px}
+  section{position:relative}
+
+  /* ---------- Top banner ---------- */
+  .banner{
+    position:sticky;top:0;z-index:60;
+    background:var(--grad-soft);
+    color:#1a1200;
+    font-family:var(--font-mono);
+    font-weight:700;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    padding:9px 16px;text-align:center;
+  }
+  .banner .dot{width:8px;height:8px;border-radius:50%;background:#5c0d00;box-shadow:0 0 0 0 rgba(92,13,0,.5);animation:blink 1.4s infinite}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+
+  /* ---------- Nav ---------- */
+  nav{
+    position:sticky;top:33px;z-index:55;
+    background:rgba(10,10,11,.78);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .logo{font-family:var(--font-display);font-size:26px;letter-spacing:1px;color:#fff}
+  .logo .s{color:var(--orange)}
+  .nav-right{display:flex;align-items:center;gap:26px}
+  .nav-right .navlink{font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);transition:color .2s}
+  .nav-right .navlink:hover{color:#fff}
+  .pill{
+    font-family:var(--font-mono);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    background:var(--grad-soft);color:#160f00;padding:9px 16px;border-radius:999px;transition:transform .2s, box-shadow .2s;
+  }
+  .pill:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(255,127,0,.35)}
+  .nav-divider{width:1px;height:22px;background:var(--line-strong)}
+  .store-ico{display:flex;gap:10px}
+  .store-ico a{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--line-strong);border-radius:9px;color:#fff;transition:border-color .2s,transform .2s}
+  .store-ico a:hover{border-color:var(--orange);transform:translateY(-1px)}
+  .store-ico svg{width:18px;height:18px}
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    font-family:var(--font-mono);font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+    padding:15px 26px;border-radius:12px;border:none;cursor:pointer;transition:transform .2s,box-shadow .2s,background .2s;
+  }
+  .btn-orange{background:var(--orange);color:#160f00}
+  .btn-orange:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(255,127,0,.4)}
+  .btn-gold{background:var(--gold);color:#1a1200}
+  .btn-gold:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(244,181,69,.4)}
+  .btn-ghost{background:transparent;color:#fff;border:1px solid var(--line-strong)}
+  .btn-ghost:hover{border-color:var(--orange);transform:translateY(-2px)}
+
+  /* ---------- Hero ---------- */
+  .hero{padding:84px 0 70px;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+  .hero h1{font-size:clamp(42px,5.4vw,74px);letter-spacing:.5px}
+  .hero h1 .accent{color:var(--orange)}
+  .hero .sub{margin-top:22px;font-size:18px;color:var(--muted);max-width:520px}
+  .countdown{display:flex;gap:14px;margin:30px 0 8px}
+  .cd-label{font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-2);margin-bottom:18px}
+  .cd-cell{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 16px;min-width:78px;text-align:center}
+  .cd-num{font-family:var(--font-display);font-size:34px;line-height:1;color:#fff}
+  .cd-unit{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2);margin-top:6px}
+  .hero-cta{display:flex;gap:14px;margin-top:26px;flex-wrap:wrap}
+
+  /* ---------- Phone mockup ---------- */
+  .phone-stage{display:flex;justify-content:center;align-items:center}
+  .phone{
+    position:relative;width:290px;height:590px;border-radius:42px;
+    background:#08080a;border:1px solid #2a2a30;
+    box-shadow:0 40px 90px rgba(0,0,0,.6), 0 0 0 8px #131317, inset 0 0 0 2px #1c1c22;
+    padding:16px 14px;animation:float 6s ease-in-out infinite;
+  }
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+  .phone-screen{position:relative;height:100%;border-radius:30px;overflow:hidden;background:linear-gradient(180deg,#1a0f06,#0a0a0b 60%)}
+  .p-top{display:flex;align-items:center;justify-content:space-between;padding:14px 14px 8px}
+  .live-badge{display:flex;align-items:center;gap:6px;background:var(--red);color:#fff;font-family:var(--font-mono);font-size:9px;font-weight:700;letter-spacing:.1em;padding:4px 8px;border-radius:6px}
+  .live-badge .d{width:6px;height:6px;border-radius:50%;background:#fff;animation:blink 1s infinite}
+  .p-viewers{font-family:var(--font-mono);font-size:9px;color:#cfcfd4;background:rgba(0,0,0,.5);padding:4px 8px;border-radius:6px}
+  .story-row{display:flex;gap:8px;padding:6px 14px 10px}
+  .story{width:38px;height:38px;border-radius:50%;background:conic-gradient(from 0deg,var(--orange),var(--gold),var(--red),var(--orange));padding:2px;flex:0 0 auto}
+  .story i{display:block;width:100%;height:100%;border-radius:50%;background:#15151a}
+  .stream-tile{position:relative;margin:2px 14px;height:190px;border-radius:14px;overflow:hidden;background:linear-gradient(135deg,#3a1600,#7a2f00 60%,#b25500)}
+  .stream-tile .sweep{position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.28) 50%,transparent 70%);transform:translateX(-120%);animation:sweep 3.4s ease-in-out infinite}
+  @keyframes sweep{0%{transform:translateX(-120%)}60%,100%{transform:translateX(120%)}}
+  .stream-tile .vc{position:absolute;left:10px;bottom:10px;font-family:var(--font-mono);font-size:9px;color:#fff;background:rgba(0,0,0,.45);padding:3px 7px;border-radius:6px}
+  .gifts{position:absolute;right:14px;bottom:120px;width:40px;height:220px;pointer-events:none}
+  .gift{position:absolute;bottom:0;left:8px;font-size:16px;opacity:0;animation:rise 3.2s linear infinite}
+  .gift:nth-child(2){left:20px;animation-delay:1s}
+  .gift:nth-child(3){left:2px;animation-delay:2s}
+  @keyframes rise{0%{transform:translateY(0) scale(.7);opacity:0}15%{opacity:1}80%{opacity:.9}100%{transform:translateY(-200px) scale(1.1);opacity:0}}
+  .chat{padding:10px 14px;display:flex;flex-direction:column;gap:7px;height:120px;overflow:hidden}
+  .chat .msg{font-size:10.5px;color:#e7e7ea;opacity:0;transform:translateY(6px);animation:chatIn .5s forwards}
+  .chat .msg b{color:var(--gold)}
+  .p-nav{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-around;padding:12px 0 16px;background:rgba(0,0,0,.55);border-top:1px solid rgba(255,255,255,.06)}
+  .p-nav i{width:20px;height:20px;border-radius:6px;background:#2a2a30;display:block}
+  .p-nav i.active{background:var(--grad-soft)}
+  @keyframes chatIn{to{opacity:1;transform:translateY(0)}}
+
+  /* ---------- Section shell ---------- */
+  .sec{padding:88px 0}
+  .sec-head{text-align:center;max-width:760px;margin:0 auto 46px}
+  .sec-head h2{font-size:clamp(30px,3.6vw,48px)}
+  .sec-head p{margin-top:16px;color:var(--muted);font-size:17px}
+  .strike{position:relative;color:var(--muted-2)}
+  .strike::after{content:"";position:absolute;left:-2px;right:-2px;top:52%;height:3px;background:var(--orange);transform:rotate(-4deg)}
+
+  /* ---------- Revenue compare ---------- */
+  .compare-wrap{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:38px;max-width:900px;margin:0 auto;text-align:center}
+  .compare-label{font-family:var(--font-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2)}
+  .compare-row{display:flex;align-items:center;justify-content:center;gap:32px;margin:26px 0 8px;flex-wrap:wrap}
+  .compare-cell .amt{font-family:var(--font-display);font-size:clamp(44px,7vw,84px);line-height:1}
+  .compare-cell.old .amt{color:#6c6c73}
+  .compare-cell.new .amt{background:var(--grad-soft);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .compare-cell .who{font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+  .vs{font-family:var(--font-display);font-size:26px;color:var(--muted-2)}
+  .qualify{font-family:var(--font-mono);font-size:12px;color:var(--gold);margin-top:14px;letter-spacing:.05em}
+  .benefit-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:900px;margin:34px auto 0}
+  .benefit{background:var(--panel-2);border:1px solid var(--line);border-radius:14px;padding:20px;transition:transform .2s,border-color .2s}
+  .benefit:hover{transform:translateY(-4px);border-color:var(--line-strong)}
+  .benefit .ic{width:40px;height:40px;border-radius:10px;background:var(--grad-soft);display:flex;align-items:center;justify-content:center;margin-bottom:12px;color:#160f00}
+  .benefit h4{font-family:var(--font-body);font-weight:700;font-size:15px}
+
+  /* ---------- Mission ---------- */
+  .mission{background:radial-gradient(1200px 500px at 50% -10%,rgba(255,127,0,.12),transparent 60%)}
+  .phase-pill{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(244,181,69,.4);border-radius:999px;padding:8px 16px}
+  .milestones{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:960px;margin:34px auto 0}
+  .ms{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;position:relative;overflow:hidden}
+  .ms .k{font-family:var(--font-display);font-size:30px;color:var(--orange)}
+  .ms .t{font-size:13px;color:var(--muted);margin-top:6px}
+  .ms .bar{height:5px;border-radius:4px;background:#26262c;margin-top:14px;overflow:hidden}
+  .ms .bar i{display:block;height:100%;width:0;background:var(--grad-soft);transition:width 1.2s ease}
+  .steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:960px;margin:40px auto 0}
+  .step{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px}
+  .step .n{font-family:var(--font-display);font-size:22px;color:var(--gold)}
+  .step h4{font-family:var(--font-body);font-weight:700;font-size:16px;margin:10px 0 8px}
+  .step p{color:var(--muted);font-size:14px}
+  .center-cta{text-align:center;margin-top:40px}
+
+  /* ---------- Two ways in ---------- */
+  .ways{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:1000px;margin:0 auto}
+  .way{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:34px;transition:transform .25s,border-color .25s}
+  .way:hover{transform:translateY(-5px);border-color:var(--line-strong)}
+  .way .tag{font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+  .way h3{font-size:26px;margin:12px 0 14px}
+  .way p{color:var(--muted);font-size:15px;margin-bottom:8px}
+  .way .excl{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin:10px 0 18px}
+  .loop{max-width:1000px;margin:34px auto 0;background:var(--panel-2);border:1px solid var(--line);border-radius:20px;padding:30px;overflow:hidden}
+  .loop-track{position:relative;height:130px}
+  .node{position:absolute;top:50%;transform:translateY(-50%);width:150px;text-align:center;font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#fff}
+  .node .av{width:56px;height:56px;border-radius:50%;margin:0 auto 10px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:22px}
+  .node.left{left:4%}.node.right{right:4%}
+  .arc{position:absolute;left:22%;right:22%;height:2px;background:var(--line-strong)}
+  .arc.top{top:34%}.arc.bottom{top:66%}
+  .travel{position:absolute;width:26px;height:26px;border-radius:50%;background:var(--grad-soft);display:flex;align-items:center;justify-content:center;font-size:13px;top:34%;transform:translate(-50%,-50%)}
+  .travel.gift{animation:goRight 3.4s ease-in-out infinite}
+  .travel.reward{top:66%;animation:goLeft 3.4s ease-in-out infinite}
+  @keyframes goRight{0%{left:24%;opacity:0}10%{opacity:1}90%{opacity:1}100%{left:76%;opacity:0}}
+  @keyframes goLeft{0%{left:76%;opacity:0}10%{opacity:1}90%{opacity:1}100%{left:24%;opacity:0}}
+  .loop-cap{text-align:center;color:var(--muted);font-size:13px;margin-top:14px}
+  .loop-labels{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-2);padding:0 18%}
+
+  /* ---------- How it works ---------- */
+  .how{background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1000px;margin:0 auto}
+  .how-card{padding:8px}
+  .how-card .n{font-family:var(--font-mono);font-size:13px;color:var(--orange);letter-spacing:.1em}
+  .how-card h4{font-size:22px;margin:14px 0 10px}
+  .how-card p{color:var(--muted);font-size:15px}
+
+  /* ---------- Footer ---------- */
+  footer{background:#060607;border-top:1px solid var(--line);padding:60px 0 26px}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.1fr;gap:34px}
+  .foot-brand .logo{font-size:24px;margin-bottom:14px}
+  .foot-brand p{color:var(--muted);font-size:13.5px;max-width:320px;margin-bottom:8px}
+  .foot-brand .fine{color:var(--muted-2);font-size:12px}
+  .socials{display:flex;gap:12px;margin-top:16px}
+  .socials a{width:34px;height:34px;border:1px solid var(--line-strong);border-radius:9px;display:flex;align-items:center;justify-content:center;color:#cfcfd4;transition:.2s}
+  .socials a:hover{border-color:var(--orange);color:#fff;transform:translateY(-2px)}
+  .socials svg{width:16px;height:16px}
+  .foot-col h5{font-family:var(--font-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2);margin-bottom:16px}
+  .foot-col a{display:block;color:var(--muted);font-size:14px;margin-bottom:10px;transition:color .2s}
+  .foot-col a:hover{color:#fff}
+  .foot-app .btn-app{display:flex;align-items:center;gap:10px;border:1px solid var(--line-strong);border-radius:10px;padding:9px 14px;margin-bottom:10px;transition:.2s}
+  .foot-app .btn-app:hover{border-color:var(--orange)}
+  .foot-app .btn-app svg{width:20px;height:20px}
+  .foot-app .btn-app span{font-size:13px}
+  .foot-addr{border-top:1px solid var(--line);margin-top:40px;padding-top:24px;color:var(--muted);font-size:13px}
+  .foot-addr a{color:var(--gold)}
+  .foot-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:22px;padding-top:20px;border-top:1px solid var(--line);flex-wrap:wrap;gap:12px}
+  .foot-bottom .cc{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:var(--muted-2)}
+  .foot-bottom a{color:var(--muted);font-size:13px}
+
+  /* ---------- Modal ---------- */
+  .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
+  .modal-backdrop.open{display:flex}
+  .modal{background:var(--panel);border:1px solid var(--line-strong);border-radius:20px;max-width:460px;width:100%;padding:32px;position:relative;text-align:center}
+  .modal h3{font-size:24px}
+  .modal .eyebrow{margin-top:8px;display:block}
+  .modal .form-note{color:var(--muted);font-size:14px;margin:18px 0}
+  .modal .x{position:absolute;top:14px;right:16px;background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;line-height:1}
+  .modal .x:hover{color:#fff}
+  .modal .fake-field{width:100%;background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:14px;color:var(--muted-2);text-align:left;font-size:14px;margin-bottom:12px}
+  .modal .fallback{font-size:12px;color:var(--muted-2);margin-top:14px}
+  .modal .fallback a{color:var(--gold)}
+
+  /* ---------- reveal ---------- */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- Responsive ---------- */
+  @media(max-width:920px){
+    .hero-grid{grid-template-columns:1fr;gap:40px}
+    .phone-stage{order:-1}
+    .benefit-row,.milestones,.steps3,.how-grid{grid-template-columns:1fr 1fr}
+    .ways{grid-template-columns:1fr}
+    .foot-grid{grid-template-columns:1fr 1fr}
+    .nav-right .navlink{display:none}
+  }
+  @media(max-width:760px){
+    nav .nav-inner{justify-content:center;gap:16px;flex-wrap:wrap;height:auto;padding:12px 0}
+    .nav-right{gap:14px}
+    .milestones,.benefit-row,.steps3,.how-grid,.foot-grid{grid-template-columns:1fr}
+    .banner{font-size:11px}
+    .sec{padding:64px 0}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important;transition:none !important}
+    .reveal{opacity:1;transform:none}
+    .ms .bar i{width:var(--fill,60%) !important}
+  }
+</style>
+</head>
+<body>
+
+<!-- Banner -->
+<a class="banner" href="giveaway.html" aria-label="Mission to a Million is live, AUD 1,000,000 in rewards">
+  <span class="dot" aria-hidden="true"></span>
+  Mission to a Million is live · AUD 1,000,000 in rewards
+</a>
+
+<!-- Nav -->
+<nav aria-label="Primary">
+  <div class="wrap nav-inner">
+    <a class="logo" href="index.html">ULTRA<span class="s">STREAM</span></a>
+    <div class="nav-right">
+      <a class="navlink" href="creators.html">For Creators</a>
+      <a class="navlink" href="giveaway.html">Mission to a Million</a>
+      <a class="pill" href="#" target="_blank" rel="noopener">Join Discord</a>
+      <span class="nav-divider" aria-hidden="true"></span>
+      <div class="store-ico">
+        <a href="#" aria-label="Download on the App Store">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.9c0-2.2 1.8-3.2 1.9-3.3-1-1.5-2.6-1.7-3.2-1.7-1.4-.1-2.6.8-3.3.8-.7 0-1.7-.8-2.8-.8-1.4 0-2.7.8-3.5 2.1-1.5 2.6-.4 6.4 1.1 8.5.7 1 1.5 2.2 2.6 2.2 1 0 1.4-.7 2.7-.7 1.2 0 1.6.7 2.7.6 1.1 0 1.8-1 2.5-2 .8-1.2 1.1-2.3 1.1-2.4-.1 0-2.1-.8-2.1-3.2zM14.3 5.6c.6-.7 1-1.7.9-2.7-.9 0-1.9.6-2.5 1.3-.5.6-1 1.6-.9 2.6 1 .1 1.9-.5 2.5-1.2z"/></svg>
+        </a>
+        <a href="#" aria-label="Get it on Google Play">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 2.3c-.3.3-.5.7-.5 1.3v16.8c0 .6.2 1 .5 1.3l.1.1L13 12.1v-.2L3.7 2.2l-.1.1zm12.7 9.9l-3.1 3.1 3.6 2.1c1 .6 1.7.6 2.3 0l-2.8-1.6zm0-.3l2.8-1.6-3.6-2.1-3.1 3.1 3.9.6zm-3.9-.6L4.2 3.4l8.3 8.3-1 1z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <h1>The only streaming platform where <span class="accent">creators and fans grow together.</span></h1>
+      <p class="sub">Engineered on a reverse gifting model: viewers tip creators, creators gift their fans back.</p>
+      <div>
+        <div class="cd-label" style="margin-top:30px">Launching in</div>
+        <div class="countdown" id="countdown" aria-live="polite">
+          <div class="cd-cell"><div class="cd-num" id="cd-days">00</div><div class="cd-unit">Days</div></div>
+          <div class="cd-cell"><div class="cd-num" id="cd-hours">00</div><div class="cd-unit">Hours</div></div>
+          <div class="cd-cell"><div class="cd-num" id="cd-mins">00</div><div class="cd-unit">Minutes</div></div>
+        </div>
+      </div>
+      <div class="hero-cta">
+        <button class="btn btn-orange js-open-queue">Join the queue</button>
+        <a class="btn btn-gold" href="giveaway.html">Be part of Mission Million</a>
+      </div>
+    </div>
+
+    <div class="phone-stage">
+      <div class="phone" aria-hidden="true">
+        <div class="phone-screen">
+          <div class="p-top">
+            <span class="live-badge"><span class="d"></span>LIVE</span>
+            <span class="p-viewers">👁 2,417</span>
+          </div>
+          <div class="story-row">
+            <span class="story"><i></i></span><span class="story"><i></i></span>
+            <span class="story"><i></i></span><span class="story"><i></i></span>
+            <span class="story"><i></i></span><span class="story"><i></i></span>
+          </div>
+          <div class="stream-tile">
+            <div class="sweep"></div>
+            <div class="vc">👁 2,417 watching</div>
+          </div>
+          <div class="gifts">
+            <span class="gift">🎁</span><span class="gift">💎</span><span class="gift">⭐</span>
+          </div>
+          <div class="chat" id="chat"></div>
+          <div class="p-nav">
+            <i class="active"></i><i></i><i></i><i></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Fold 2: Revenue share -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>Everyone else takes their <span class="strike">cut</span>. We stepped back.</h2>
+    </div>
+    <div class="compare-wrap reveal">
+      <div class="compare-label">On every AUD 1,000 your community sends you</div>
+      <div class="compare-row">
+        <div class="compare-cell old"><div class="amt" data-count="550" data-prefix="$">$0</div><div class="who">Elsewhere</div></div>
+        <div class="vs">vs</div>
+        <div class="compare-cell new"><div class="amt" data-count="970" data-prefix="$">$0</div><div class="who">UltraStream</div></div>
+      </div>
+      <div class="qualify">97% revenue share applies to the first 1,000 creators.</div>
+    </div>
+    <div class="benefit-row">
+      <div class="benefit reveal"><div class="ic">📈</div><h4>Stack extra revenue</h4></div>
+      <div class="benefit reveal"><div class="ic">🎯</div><h4>Get on brands' radar</h4></div>
+      <div class="benefit reveal"><div class="ic">🚀</div><h4>Unlock a new audience</h4></div>
+    </div>
+  </div>
+</section>
+
+<!-- Fold 3: Mission highlight -->
+<section class="sec mission">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>Join the Mission to a Million.</h2>
+      <p>1 million verified members unlocks AUD 1 million in rewards.</p>
+      <div style="margin-top:20px"><span class="phase-pill"><span class="dot" style="background:var(--gold)"></span>AUD 150,000 unlocks in Phase 1</span></div>
+    </div>
+    <div class="milestones">
+      <div class="ms reveal"><div class="k">100K</div><div class="t">AUD 150,000 creator prizes</div><div class="bar" style="--fill:100%"><i></i></div></div>
+      <div class="ms reveal"><div class="k">250K</div><div class="t">Part of the remaining AUD 850,000</div><div class="bar" style="--fill:66%"><i></i></div></div>
+      <div class="ms reveal"><div class="k">500K</div><div class="t">To be announced</div><div class="bar" style="--fill:40%"><i></i></div></div>
+      <div class="ms reveal"><div class="k">1M</div><div class="t">Remaining rewards plus global celebration</div><div class="bar" style="--fill:22%"><i></i></div></div>
+    </div>
+    <div class="steps3">
+      <div class="step reveal"><div class="n">01</div><h4>Sign up</h4><p>Become a verified member.</p></div>
+      <div class="step reveal"><div class="n">02</div><h4>Bring your community</h4><p>Every member counts.</p></div>
+      <div class="step reveal"><div class="n">03</div><h4>Complete missions</h4><p>Unlock rewards together.</p></div>
+    </div>
+    <div class="center-cta"><a class="btn btn-gold" href="giveaway.html">Join the mission</a></div>
+  </div>
+</section>
+
+<!-- Fold 4: Two ways in -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal"><h2>Two ways into the ecosystem.</h2></div>
+    <div class="ways">
+      <div class="way reveal">
+        <div class="tag">For Creators</div>
+        <h3>Go live. Get paid. Keep 97%.</h3>
+        <p>97% revenue share for the first 1,000 creators.</p>
+        <p>No follower minimum. No approval queue. If you go live, you're a creator, and your community rewards you directly, nothing sits in between.</p>
+        <div style="margin-top:20px"><a class="btn btn-orange" href="creators.html">Start creating</a></div>
+      </div>
+      <div class="way reveal">
+        <div class="tag">For Viewers</div>
+        <h3>Earn while you watch.</h3>
+        <p>Get gifted by your creators. Creators pull their fans up. Fans pull their creators up. Both sides grow together.</p>
+        <div class="excl">Exclusively on UltraStream</div>
+        <div style="margin-top:8px"><a class="btn btn-gold" href="viewers.html">Start watching</a></div>
+      </div>
+    </div>
+    <div class="loop reveal">
+      <div class="loop-labels"><span>Viewer</span><span>Creator</span></div>
+      <div class="loop-track">
+        <div class="node left"><div class="av">🧑</div>Viewer</div>
+        <div class="arc top"></div>
+        <div class="arc bottom"></div>
+        <div class="travel gift">🎁</div>
+        <div class="travel reward">💰</div>
+        <div class="node right"><div class="av">🎥</div>Creator</div>
+      </div>
+      <div class="loop-labels" style="margin-top:6px"><span>Viewer tips creator</span><span>Creator rewards viewer</span></div>
+      <div class="loop-cap">The reverse gifting model, first on UltraStream.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Fold 5: How it works -->
+<section class="sec how">
+  <div class="wrap">
+    <div class="sec-head reveal"><h2>How it actually works</h2></div>
+    <div class="how-grid">
+      <div class="how-card reveal"><div class="n">01 &nbsp;Sign up</div><h4>Verified in seconds</h4><p>Create your account and become a verified member in seconds. No approval. No waiting room.</p></div>
+      <div class="how-card reveal"><div class="n">02 &nbsp;Pick your lane</div><h4>Watch or go live</h4><p>Watch and support creators, or go live and become one. Switch anytime, no separate sign-up.</p></div>
+      <div class="how-card reveal"><div class="n">03 &nbsp;Earn as you go</div><h4>All in one app</h4><p>Stream, chat, play, connect, all in one app. Viewers earn real rewards. The first 1,000 creators keep 97%.</p></div>
+    </div>
+    <div class="center-cta"><button class="btn btn-orange js-open-queue">Join the queue</button></div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo">ULTRA<span class="s">STREAM</span></div>
+        <p>The only streaming platform where creators and fans grow together.</p>
+        <p class="fine">UltraStream is a live streaming platform operated by Kruzer Ultraverse, forming part of the wider Ultraverse ecosystem. UltraStream allows creators to broadcast live video content and allows viewers to watch, follow, and interact with that content.</p>
+        <div class="socials">
+          <a href="#" aria-label="Discord"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.3 5.3A17 17 0 0 0 15 4l-.2.4a15 15 0 0 1 3.7 1.2 12.4 12.4 0 0 0-10.9 0A15 15 0 0 1 11.2 4.4L11 4a17 17 0 0 0-4.3 1.3C4 9.3 3.3 13.1 3.6 16.9A17 17 0 0 0 8.8 19l.5-.9a11 11 0 0 1-1.8-.9l.4-.3a12 12 0 0 0 10.2 0l.4.3a11 11 0 0 1-1.8.9l.5.9a17 17 0 0 0 5.2-2.1c.4-4.4-.7-8.2-3.5-11.5zM9.5 14.7c-1 0-1.9-.9-1.9-2.1s.8-2.1 1.9-2.1 1.9 1 1.9 2.1-.8 2.1-1.9 2.1zm5 0c-1 0-1.9-.9-1.9-2.1s.8-2.1 1.9-2.1 1.9 1 1.9 2.1-.8 2.1-1.9 2.1z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.1.4.3 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.1-1 .3-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.3-2.2-.4a3.7 3.7 0 0 1-1.4-.9 3.7 3.7 0 0 1-.9-1.4c-.1-.4-.3-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.3-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.1 1-.3 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.2A6.6 6.6 0 1 0 12 18.6 6.6 6.6 0 0 0 12 5.4zm0 10.9a4.3 4.3 0 1 1 0-8.6 4.3 4.3 0 0 1 0 8.6zm6.9-11.1a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/></svg></a>
+          <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.8a4.3 4.3 0 0 1-1-2.8h-3v11.9a2.4 2.4 0 1 1-2.4-2.4c.2 0 .5 0 .7.1V9.5a5.6 5.6 0 0 0-.7 0 5.4 5.4 0 1 0 5.4 5.4V8.9a7.2 7.2 0 0 0 4.2 1.4V7.3a4.3 4.3 0 0 1-3.2-1.5z"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.5a3 3 0 0 0-2.1-2.1C19 4.8 12 4.8 12 4.8s-7 0-8.9.6A3 3 0 0 0 1 7.5 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.5a3 3 0 0 0 2.1 2.1c1.9.6 8.9.6 8.9.6s7 0 8.9-.6a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.5 31 31 0 0 0-.5-4.5zM9.8 15.3V8.7l5.7 3.3-5.7 3.3z"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h5>Platform</h5>
+        <a href="creators.html">Creators</a>
+        <a href="viewers.html">Viewers</a>
+        <a href="giveaway.html">Mission to a Million</a>
+        <a href="about.html">About Us</a>
+        <a href="about.html#faq">FAQ</a>
+        <a href="#">Discord</a>
+      </div>
+      <div class="foot-col">
+        <h5>Legal</h5>
+        <a href="terms.html">Terms</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="community-guidelines.html">Community Guidelines</a>
+        <a href="child-safety.html">Child Safety</a>
+      </div>
+      <div class="foot-col foot-app">
+        <h5>Get the app</h5>
+        <a class="btn-app" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.9c0-2.2 1.8-3.2 1.9-3.3-1-1.5-2.6-1.7-3.2-1.7-1.4-.1-2.6.8-3.3.8-.7 0-1.7-.8-2.8-.8-1.4 0-2.7.8-3.5 2.1-1.5 2.6-.4 6.4 1.1 8.5.7 1 1.5 2.2 2.6 2.2 1 0 1.4-.7 2.7-.7 1.2 0 1.6.7 2.7.6 1.1 0 1.8-1 2.5-2 .8-1.2 1.1-2.3 1.1-2.4-.1 0-2.1-.8-2.1-3.2z"/></svg><span>Download on the App Store</span></a>
+        <a class="btn-app" href="#"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 2.3c-.3.3-.5.7-.5 1.3v16.8c0 .6.2 1 .5 1.3L13 12.1v-.2L3.6 2.3zm12.7 9.9l-3.1 3.1 3.6 2.1c1 .6 1.7.6 2.3 0l-2.8-1.6zm0-.3l2.8-1.6-3.6-2.1-3.1 3.1 3.9.6z"/></svg><span>Get it on Google Play</span></a>
+        <a class="pill" style="display:inline-flex;margin-top:6px" href="#">Join Discord</a>
+      </div>
+    </div>
+    <div class="foot-addr">
+      Email: <a href="mailto:support@ultrastream.one">support@ultrastream.one</a><br>
+      Kruzer Ultraverse Pty Ltd (ABN 62 686 962 783), Level 13, 60 Castlereagh Street, Sydney NSW 2000, Australia
+    </div>
+    <div class="foot-bottom">
+      <span class="cc">© 2026 Kruzer Ultraverse Pty Ltd</span>
+      <a href="terms.html">Terms &amp; Conditions</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Sign-up modal -->
+<div class="modal-backdrop" id="queueModal" role="dialog" aria-modal="true" aria-labelledby="queueTitle">
+  <div class="modal">
+    <button class="x" id="closeQueue" aria-label="Close">&times;</button>
+    <span class="eyebrow">Be one of the first 1,000 founding creators</span>
+    <h3 id="queueTitle" style="margin-top:10px">Join the queue</h3>
+    <p class="form-note">Sign-up form loads here (Brevo). Enter your details to lock in your spot.</p>
+    <div class="fake-field">Your email address</div>
+    <div class="fake-field">Your name</div>
+    <button class="btn btn-orange" style="width:100%">Join the queue</button>
+    <p class="fallback">Trouble seeing the form? <a href="#" target="_blank" rel="noopener">Open it in a new tab</a>.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Countdown — placeholder 11 days out */
+  var target = new Date();
+  target.setDate(target.getDate() + 11);
+  function tick(){
+    var now = new Date();
+    var diff = Math.max(0, target - now);
+    var d = Math.floor(diff/86400000);
+    var h = Math.floor(diff%86400000/3600000);
+    var m = Math.floor(diff%3600000/60000);
+    var pad = function(n){return String(n).padStart(2,'0')};
+    document.getElementById('cd-days').textContent = pad(d);
+    document.getElementById('cd-hours').textContent = pad(h);
+    document.getElementById('cd-mins').textContent = pad(m);
+  }
+  tick(); setInterval(tick, 30000);
+
+  /* Chat cycling */
+  var lines = [
+    ['Maya','this is unreal 🔥'],['Jordan','sent you a gift!'],['Kai','97%?? no way'],
+    ['Ada','following now'],['Sam','best stream today'],['Noah','lets goooo']
+  ];
+  var chat = document.getElementById('chat');
+  var ci = 0;
+  function addMsg(){
+    if(!chat) return;
+    var l = lines[ci % lines.length]; ci++;
+    var el = document.createElement('div');
+    el.className='msg';
+    el.innerHTML = '<b>'+l[0]+'</b> '+l[1];
+    chat.appendChild(el);
+    while(chat.children.length > 5) chat.removeChild(chat.firstChild);
+  }
+  for(var i=0;i<4;i++) addMsg();
+  if(!reduce) setInterval(addMsg, 1800);
+
+  /* Count-up on scroll */
+  function countUp(el){
+    var end = parseInt(el.getAttribute('data-count'),10);
+    var prefix = el.getAttribute('data-prefix')||'';
+    if(reduce){ el.textContent = prefix + end.toLocaleString(); return; }
+    var start = null, dur = 1400;
+    function step(ts){
+      if(!start) start = ts;
+      var p = Math.min(1,(ts-start)/dur);
+      var val = Math.floor((0.5-Math.cos(p*Math.PI)/2)*end);
+      el.textContent = prefix + val.toLocaleString();
+      if(p<1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* Reveal + triggers */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        e.target.querySelectorAll && e.target.querySelectorAll('[data-count]').forEach(countUp);
+        if(e.target.matches('[data-count]')) countUp(e.target);
+        if(e.target.classList.contains('milestones')||e.target.querySelector && e.target.querySelector('.ms .bar i')){
+          e.target.querySelectorAll('.ms').forEach(function(ms){
+            var fill = ms.querySelector('.bar').style.getPropertyValue('--fill')||'60%';
+            ms.querySelector('.bar i').style.width = fill;
+          });
+        }
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:.2});
+  document.querySelectorAll('.reveal, .compare-wrap, .milestones').forEach(function(el){io.observe(el)});
+
+  /* Modal */
+  var modal = document.getElementById('queueModal');
+  var lastFocus = null;
+  function openModal(btn){
+    lastFocus = btn||document.activeElement;
+    modal.classList.add('open');
+    document.body.style.overflow='hidden';
+    document.getElementById('closeQueue').focus();
+  }
+  function closeModal(){
+    modal.classList.remove('open');
+    document.body.style.overflow='';
+    if(lastFocus) lastFocus.focus();
+  }
+  document.querySelectorAll('.js-open-queue').forEach(function(b){
+    b.addEventListener('click', function(){ openModal(b); });
+  });
+  document.getElementById('closeQueue').addEventListener('click', closeModal);
+  modal.addEventListener('click', function(e){ if(e.target===modal) closeModal(); });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && modal.classList.contains('open')) closeModal(); });
+})();
+</script>
+</body>
+</html>
