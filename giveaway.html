@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UltraStream · Mission to a Million</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Permanent+Marker&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0908; --surface:#16130F; --surface-2:#1E1A14; --line:#2A241C;
+    --orange:#FF5E1A; --orange-deep:#C23A0E; --cream:#F3EEE2; --muted:#9A9285; --gold:#FFB238;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg); color:var(--cream); font-family:'Inter',sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden;}
+  .display{font-family:'Anton',sans-serif; text-transform:uppercase; letter-spacing:0.01em;}
+  .brush{font-family:'Permanent Marker',cursive; text-transform:none; letter-spacing:0;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  section{position:relative; padding:86px 8vw; border-bottom:1px dashed var(--line);}
+  .accent{color:var(--orange);}
+
+  /* ============ BANNER + NAV ============ */
+  .fomo-bar{
+    position:sticky; top:0; z-index:30; display:flex; align-items:center; justify-content:center; gap:10px;
+    background:linear-gradient(90deg,#E09A22,var(--gold) 45%,#FFD27A); color:#1a0d05;
+    font-family:'JetBrains Mono',monospace; font-weight:800; font-size:12.5px; letter-spacing:0.04em;
+    padding:10px 16px; text-align:center; text-decoration:none;
+  }
+  .fomo-bar .live-dot{width:8px; height:8px; border-radius:50%; background:#1a0d05; animation:blink 1.1s infinite;}
+  @keyframes blink{0%,100%{opacity:1;} 50%{opacity:0.2;}}
+
+  .nav{
+    position:sticky; top:36px; z-index:20; display:flex; align-items:center; justify-content:space-between;
+    padding:17px 8vw; background:rgba(10,9,8,0.9); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);
+  }
+  .nav-logo{font-family:'Anton',sans-serif; font-size:18px; text-decoration:none; color:var(--cream);}
+  .nav-logo span{color:var(--orange);}
+  .nav-links{display:flex; align-items:center; gap:24px;}
+  .nav-link{font-family:'JetBrains Mono',monospace; font-size:12.5px; letter-spacing:0.05em; color:var(--muted); text-decoration:none;}
+  .nav-link:hover{color:var(--cream);}
+  .nav-link.active{color:var(--orange);}
+  .nav-store{
+    width:34px; height:34px; border-radius:9px; display:inline-flex; align-items:center; justify-content:center;
+    background:var(--surface-2); border:1px solid var(--line); color:var(--cream); text-decoration:none;
+    transition:border-color .15s ease, transform .15s ease, color .15s ease; flex-shrink:0;
+  }
+  .nav-store svg{width:18px; height:18px;}
+  .nav-store:hover{border-color:var(--orange); color:var(--orange); transform:translateY(-1px);}
+  .nav-sep{width:1px; height:20px; background:var(--line); flex-shrink:0;}
+  @media(max-width:760px){.nav-sep{display:none;}}
+  .nav-discord{
+    display:inline-flex; align-items:center; gap:7px; font-family:'JetBrains Mono',monospace; font-weight:700; font-size:12.5px;
+    color:#1a0d05; background:linear-gradient(135deg,var(--orange),var(--gold)); padding:9px 17px;
+    border-radius:999px; text-decoration:none; box-shadow:0 6px 20px rgba(255,94,26,0.3);
+  }
+  @media(max-width:760px){
+    .nav{flex-direction:column; gap:14px;}
+    .nav-links{flex-wrap:wrap; justify-content:center; gap:16px;}
+  }
+
+  .btn-primary{
+    display:inline-flex; align-items:center; gap:10px; background:var(--orange); color:#1a0d05; font-weight:800; font-size:15px;
+    letter-spacing:0.02em; padding:17px 34px; border-radius:8px; text-decoration:none; border:none; cursor:pointer;
+    box-shadow:0 8px 30px rgba(255,94,26,0.35); transition:transform .15s ease;
+  }
+  .btn-primary:hover{transform:translateY(-2px);}
+
+  /* ============ HERO + CAMPAIGN PROGRESS (clubbed) ============ */
+  .give-hero{
+    display:block; padding-bottom:60px;
+    background:radial-gradient(700px 500px at 15% 10%, rgba(255,94,26,0.16), transparent 60%), var(--bg);
+  }
+  .hero-grid{display:grid; grid-template-columns:1fr 1.15fr; gap:60px; align-items:center; max-width:1140px; margin:0 auto; width:100%; padding-top:20px;}
+  @media(max-width:860px){.hero-grid{grid-template-columns:1fr; gap:50px;}}
+
+  /* --- mission visual --- */
+  .mission-visual{position:relative; width:100%; max-width:420px; aspect-ratio:1; margin:0 auto;}
+  .mv-ring{position:absolute; inset:0; border:1.5px dashed rgba(255,94,26,0.3); border-radius:50%; animation:spin 40s linear infinite;}
+  .mv-ring.outer{inset:-24px; border-color:rgba(255,178,56,0.18); animation-duration:60s; animation-direction:reverse;}
+  @keyframes spin{from{transform:rotate(0deg);} to{transform:rotate(360deg);}}
+  .mv-core{
+    position:absolute; inset:10%; border-radius:50%; background:radial-gradient(circle,rgba(255,94,26,0.28),var(--surface-2) 70%);
+    border:2.5px solid var(--orange); box-shadow:0 0 100px rgba(255,94,26,0.4); display:flex; flex-direction:column;
+    align-items:center; justify-content:center; text-align:center;
+  }
+  .mv-core .mv-tag{font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.16em; color:var(--gold); margin-bottom:8px;}
+  .mv-core .mv-num{font-family:'Anton',sans-serif; font-size:clamp(56px,9vw,86px); line-height:0.95; color:var(--cream); text-shadow:0 0 30px rgba(255,94,26,0.65), 0 0 60px rgba(255,178,56,0.4); letter-spacing:0.01em;}
+  .mv-core .mv-sub{font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.14em; color:var(--gold); margin-top:8px; font-weight:800;}
+  .mv-dot{position:absolute; width:10px; height:10px; border-radius:50%; background:var(--gold); box-shadow:0 0 12px rgba(255,178,56,0.7); animation:pulse 1.8s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;} 50%{opacity:0.25;}}
+  .mv-dot:nth-child(3){top:2%; left:50%;}
+  .mv-dot:nth-child(4){top:50%; right:-2%;}
+  .mv-dot:nth-child(5){bottom:2%; left:50%;}
+  .mv-dot:nth-child(6){top:50%; left:-2%;}
+  .mv-dot:nth-child(7){top:15%; right:12%;}
+  .mv-dot:nth-child(8){bottom:15%; left:12%;}
+
+  /* --- hero content --- */
+  .hero-content{text-align:left;}
+  @media(max-width:860px){.hero-content{text-align:center;}}
+  .hero-content h1{font-size:clamp(34px,5.2vw,58px); line-height:1.08; margin-bottom:16px;}
+  .mission-callout{
+    display:inline-flex; align-items:center; gap:8px; font-size:14px; font-weight:700; color:var(--gold);
+    background:rgba(255,178,56,0.1); border:1px solid rgba(255,178,56,0.4); border-radius:999px; padding:10px 18px; margin-bottom:22px;
+  }
+  .hero-prize-row{display:flex; gap:14px; margin-bottom:26px; flex-wrap:wrap;}
+  @media(max-width:860px){.hero-prize-row{justify-content:center;}}
+  .hero-prize{display:flex; align-items:center; gap:12px; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:12px 16px;}
+  .hero-prize .hp-icon{width:34px; height:34px; border-radius:9px; background:linear-gradient(135deg,var(--orange),var(--gold)); display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0;}
+  .hero-prize .hp-label{font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:0.08em; color:var(--muted);}
+  .hero-prize .hp-val{font-size:14px; font-weight:800;}
+  .enter-steps{list-style:none; margin-top:20px; display:flex; flex-direction:column; gap:10px;}
+  .enter-steps li{display:flex; align-items:center; gap:12px; font-size:13.5px; color:var(--cream);}
+  .enter-steps .es-num{
+    width:22px; height:22px; border-radius:50%; background:rgba(255,94,26,0.15); border:1px solid var(--orange); color:var(--orange);
+    font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+
+  /* --- progress block --- */
+  .progress-block{max-width:1000px; margin:36px auto 0;}
+  .prog-tag{
+    display:flex; align-items:center; justify-content:center; gap:8px; text-align:center; margin-bottom:30px;
+    font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.08em; color:var(--gold);
+  }
+  .prog-tag::before, .prog-tag::after{content:''; height:1px; width:60px; background:var(--line);}
+
+  .prog-count{text-align:center; margin-bottom:36px;}
+  .target-label{font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.16em; color:var(--orange); margin-bottom:4px;}
+  .target-num{
+    font-family:'Anton',sans-serif; font-size:clamp(44px,7vw,72px); line-height:1; color:var(--cream);
+    background:linear-gradient(90deg,var(--orange),var(--gold)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+    margin-bottom:10px;
+  }
+  .current-count .num{font-family:'JetBrains Mono',monospace; font-size:17px; font-weight:800; color:var(--gold);}
+  .current-count .of{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted); letter-spacing:0.04em;}
+
+  .milestone-wrap{max-width:880px; margin:0 auto; position:relative; padding:0 20px 110px;}
+  .milestone-track{height:10px; background:var(--surface-2); border:1px solid var(--line); border-radius:999px; position:relative; overflow:visible;}
+  .milestone-fill{position:absolute; left:0; top:0; height:100%; border-radius:999px; background:linear-gradient(90deg,var(--orange),var(--gold)); width:0;}
+  .milestone-marker{
+    position:absolute; top:50%; transform:translate(-50%,-50%); width:26px; height:26px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; font-size:12px; border:2px solid var(--line); background:var(--surface); z-index:2;
+  }
+  .milestone-marker.unlocked{border-color:var(--gold); background:var(--gold); color:#1a0d05;}
+  .milestone-label{position:absolute; top:calc(100% + 12px); left:50%; transform:translateX(-50%); text-align:center; width:150px;}
+  .milestone-label .ms-num{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); margin-bottom:3px;}
+  .milestone-label .ms-status{font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.08em; padding:2px 8px; border-radius:5px; display:inline-block; margin-bottom:6px;}
+  .ms-status.unlocked{background:rgba(255,178,56,0.15); color:var(--gold); border:1px solid rgba(255,178,56,0.4);}
+  .ms-status.locked{background:var(--surface-2); color:var(--muted); border:1px solid var(--line);}
+  .milestone-label .ms-rewards{font-size:11px; color:var(--muted); line-height:1.45;}
+  .milestone-label .ms-rewards .tbd{opacity:0.6; font-style:italic;}
+  .m-100k{left:10%;} .m-250k{left:25%;} .m-500k{left:50%;} .m-1m{left:100%;}
+  @media(max-width:820px){
+    .milestone-wrap{padding:0 0 130px;}
+    .milestone-label{width:110px; font-size:11px;}
+  }
+
+  /* --- mission checklist --- */
+  .checklist-block{max-width:640px; margin:20px auto 0;}
+  .checklist-header{display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;}
+  .checklist-header .cl-title{font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.08em; color:var(--orange);}
+  .checklist-header .cl-counter{
+    font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:800; color:var(--gold);
+    background:rgba(255,178,56,0.12); border:1px solid rgba(255,178,56,0.4); padding:5px 14px; border-radius:999px;
+  }
+  .checklist{display:flex; flex-direction:column; gap:8px; list-style:none;}
+  .cl-item{
+    display:flex; align-items:center; gap:14px; background:var(--surface-2); border:1px solid var(--line); border-radius:12px;
+    padding:13px 16px; cursor:pointer; transition:border-color .15s ease, background .15s ease; user-select:none;
+  }
+  .cl-item:hover{border-color:rgba(255,94,26,0.4);}
+  .cl-check{
+    width:22px; height:22px; border-radius:6px; border:1.5px solid var(--line); flex-shrink:0; display:flex; align-items:center;
+    justify-content:center; font-size:12px; color:transparent; transition:all .15s ease;
+  }
+  .cl-name{flex:1; font-size:13.5px; font-weight:600; color:var(--cream);}
+  .cl-entry{
+    font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:800; letter-spacing:0.04em; color:var(--muted);
+    background:var(--surface); border:1px solid var(--line); padding:3px 8px; border-radius:999px; flex-shrink:0;
+  }
+  .cl-item.done{background:rgba(255,178,56,0.08); border-color:rgba(255,178,56,0.4);}
+  .cl-item.done .cl-check{background:var(--gold); border-color:var(--gold); color:#1a0d05;}
+  .cl-item.done .cl-entry{background:rgba(255,178,56,0.18); border-color:rgba(255,178,56,0.45); color:var(--gold);}
+  .checklist-note{font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--muted); opacity:0.7; text-align:center; margin-top:14px;}
+
+  .prog-legend{max-width:880px; margin:60px auto 0; text-align:center;}
+  .invite-line{font-size:15px; color:var(--cream); font-weight:600; margin-bottom:18px;}
+  .share-btn{font-size:14px; padding:14px 28px;}
+  .prog-legend .note{font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--muted); opacity:0.7;}
+
+  /* ============ FOLD 2 - YOUR MISSIONS ============ */
+  .missions-fold{background:var(--surface);}
+  .missions-fold .checklist-block{margin-top:0;}
+
+  /* ============ FOLD 3 - REWARDS ============ */
+  .breakdown{background:var(--bg);}
+  .breakdown-head{text-align:center; margin-bottom:50px;}
+  .breakdown-head h2{font-size:clamp(26px,3.6vw,40px); max-width:22ch; margin:0 auto 10px;}
+  .breakdown-head .brush{color:var(--gold); font-size:clamp(15px,2vw,18px); display:block; transform:rotate(-1deg);}
+
+  .fund-summary{display:flex; align-items:flex-start; justify-content:center; gap:16px; flex-wrap:wrap; max-width:900px; margin:36px auto 46px;}
+  .fs-item{text-align:center; width:150px;}
+  .fs-amt{display:block; font-family:'JetBrains Mono',monospace; font-size:clamp(17px,2.2vw,22px); font-weight:800; color:var(--cream); white-space:nowrap;}
+  .fs-label{display:block; font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.06em; color:var(--muted); margin-top:4px;}
+  .fs-arrow, .fs-plus{font-family:'JetBrains Mono',monospace; font-size:18px; color:var(--orange); font-weight:800; margin-top:1px; flex-shrink:0;}
+
+  .breakdown-grid{display:grid; grid-template-columns:1fr 1fr; gap:26px; max-width:1000px; margin:0 auto 26px;}
+  @media(max-width:820px){.breakdown-grid{grid-template-columns:1fr;}}
+  .breakdown-card{background:var(--surface-2); border:1px solid var(--line); border-radius:18px; padding:32px;}
+  .breakdown-card h4{font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.1em; color:var(--orange); margin-bottom:16px;}
+  .tier-row{display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid var(--line); font-size:14px;}
+  .tier-row:last-child{border-bottom:none;}
+  .tier-row .medal{margin-right:8px;}
+  .tier-row .amt{font-family:'JetBrains Mono',monospace; font-weight:700; color:var(--gold);}
+  .community-card p{color:var(--muted); font-size:14px; line-height:1.65; margin-bottom:14px;}
+  .community-card .big-num{font-family:'JetBrains Mono',monospace; font-size:34px; font-weight:800; color:var(--gold); margin-bottom:8px;}
+  .community-card .note{font-size:11.5px; color:var(--muted); opacity:0.75; font-style:italic;}
+
+  /* --- bonus / future unlocks --- */
+  .bonus-card{max-width:1040px; margin:0 auto; background:radial-gradient(circle at 20% 0%,rgba(255,94,26,0.1),transparent 55%),linear-gradient(135deg,#221a12,#17120c); border:1.5px solid var(--orange); border-radius:20px; padding:36px;}
+  .bonus-card h4{font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.1em; color:var(--gold); margin-bottom:6px;}
+  .bonus-card .sub{color:var(--muted); font-size:12.5px; margin-bottom:28px;}
+
+  .access-row{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:30px;}
+  @media(max-width:640px){.access-row{grid-template-columns:1fr;}}
+  .access-card{
+    position:relative; overflow:hidden; border-radius:14px; padding:20px 22px; min-height:110px;
+    background:linear-gradient(135deg,#2E2412 0%,#1C160C 55%,#2E2412 100%);
+    border:1px solid rgba(255,178,56,0.4); box-shadow:0 10px 30px rgba(0,0,0,0.35);
+  }
+  .access-card::before{
+    content:''; position:absolute; top:-50%; left:-20%; width:60%; height:200%;
+    background:linear-gradient(100deg,transparent 40%,rgba(255,255,255,0.12) 50%,transparent 60%); transform:rotate(8deg);
+  }
+  .access-chip-icon{width:30px; height:22px; border-radius:4px; background:linear-gradient(135deg,var(--gold),var(--orange)); margin-bottom:14px; position:relative; z-index:1;}
+  .access-card .ac-name{font-size:14.5px; font-weight:700; margin-bottom:4px; position:relative; z-index:1;}
+  .access-card .ac-status{display:inline-flex; align-items:center; gap:5px; font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:0.08em; color:var(--gold); position:relative; z-index:1;}
+  .access-card .ac-barcode{position:absolute; bottom:14px; right:18px; display:flex; gap:2px; opacity:0.5;}
+  .access-card .ac-barcode span{width:2px; height:16px; background:var(--cream);}
+  .access-card .ac-barcode span:nth-child(2n){height:10px; align-self:flex-end;}
+
+  .loot-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
+  @media(max-width:760px){.loot-grid{grid-template-columns:repeat(3,1fr);}}
+  @media(max-width:520px){.loot-grid{grid-template-columns:repeat(2,1fr);}}
+  .loot-card{
+    background:var(--surface-2); border:1px solid rgba(255,94,26,0.3); border-radius:14px; padding:18px 12px 14px;
+    text-align:center; position:relative; overflow:hidden; transition:transform .15s ease, border-color .15s ease;
+  }
+  .loot-card:hover{transform:translateY(-3px); border-color:var(--orange);}
+  .loot-card::before{content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--orange),var(--gold));}
+  .loot-icon{
+    width:52px; height:52px; margin:0 auto 12px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:24px;
+    background:radial-gradient(circle,rgba(255,94,26,0.22),rgba(255,94,26,0.05)); border:1px solid rgba(255,178,56,0.4);
+    box-shadow:0 0 20px rgba(255,94,26,0.25);
+  }
+  .loot-card .loot-name{font-size:12.5px; font-weight:600; line-height:1.35; margin-bottom:8px; min-height:32px;}
+  .loot-card .loot-tag{display:inline-block; font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.06em; padding:3px 9px; border-radius:5px;}
+  .loot-tag.proposed{background:rgba(255,178,56,0.15); color:var(--gold); border:1px solid rgba(255,178,56,0.4);}
+  .loot-tag.tbd{background:var(--surface); color:var(--muted); border:1px solid var(--line); font-style:italic;}
+
+  /* ============ FOLD 4 - POSSIBLE FUTURE UNLOCKS ============ */
+  .future{background:var(--surface);}
+
+  /* ============ FOLD 5 - VERIFIED MEMBER ============ */
+  .trust{text-align:center;}
+  .trust-inner{max-width:640px; margin:0 auto;}
+  .trust h4{font-size:15px; margin-bottom:14px; color:var(--orange); font-family:'JetBrains Mono',monospace; letter-spacing:0.05em;}
+  .trust ul{list-style:none; color:var(--muted); font-size:14px; line-height:1.9;}
+  .trust ul li::before{content:'✓ '; color:var(--gold); font-weight:800;}
+
+  /* ============ FOOTER ============ */
+  footer{padding:70px 8vw 34px; border-bottom:none; background:var(--bg);}
+  .ft-grid{display:grid; grid-template-columns:1.8fr 1fr 1fr 1.1fr; gap:34px; max-width:1120px; margin:0 auto 46px;}
+  @media(max-width:900px){.ft-grid{grid-template-columns:1fr 1fr; gap:34px;}}
+  @media(max-width:520px){.ft-grid{grid-template-columns:1fr;}}
+  .ft-logo{font-family:'Anton',sans-serif; font-size:22px; color:var(--cream); margin-bottom:12px; display:inline-block; text-decoration:none;}
+  .ft-logo span{color:var(--orange);}
+  .ft-about-copy{
+    font-size:12.5px; color:var(--muted); line-height:1.75; margin-top:12px; max-width:46ch;
+  }
+  .ft-blurb{font-size:13.5px; color:var(--cream); font-weight:600; line-height:1.55; max-width:38ch;}
+  .ft-col h4{font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.14em; color:var(--orange); margin-bottom:15px;}
+  .ft-col a, .ft-col p{display:block; font-size:13px; color:var(--muted); text-decoration:none; margin-bottom:10px; line-height:1.55;}
+  .ft-col a:hover{color:var(--cream);}
+  .ft-discord{display:inline-flex; align-items:center; gap:7px; font-family:'JetBrains Mono',monospace; font-weight:700; font-size:11.5px; color:#1a0d05; background:linear-gradient(135deg,var(--orange),var(--gold)); padding:8px 15px; border-radius:999px; text-decoration:none; margin-top:4px;}
+  .ft-social{display:flex; gap:10px; margin-top:18px;}
+  .ft-social .soc{
+    width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center;
+    background:var(--surface-2); border:1px solid var(--line); color:var(--muted);
+    transition:color .15s ease, border-color .15s ease, transform .15s ease;
+  }
+  .ft-social .soc svg{width:19px; height:19px;}
+  .ft-social .soc:hover{color:var(--orange); border-color:var(--orange); transform:translateY(-2px);}
+
+  .ft-col .store{
+    display:flex; align-items:center; gap:10px; background:var(--surface-2); border:1px solid var(--line);
+    border-radius:9px; padding:9px 14px; margin-bottom:9px; color:var(--cream);
+    transition:border-color .15s ease, transform .15s ease;
+  }
+  .ft-col .store:hover{border-color:var(--orange); transform:translateY(-2px); color:var(--cream);}
+  .store-ico{width:20px; height:20px; flex-shrink:0; color:var(--cream);}
+  .store-txt{display:flex; flex-direction:column; line-height:1.15; font-size:13px; font-weight:700; margin:0;}
+  .store-txt small{font-size:8.5px; font-weight:500; letter-spacing:0.06em; color:var(--muted); text-transform:uppercase;}
+  .ft-store-note{
+    font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--muted); opacity:0.55;
+    max-width:1120px; margin:0 auto 20px; line-height:1.6;
+  }
+  .ft-address{
+    max-width:1120px; margin:0 auto 34px; padding-top:30px; border-top:1px solid var(--line);
+  }
+  .ft-address h4{
+    font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.14em; color:var(--orange); margin-bottom:13px;
+  }
+  .ft-address p{color:var(--muted); font-size:13px; line-height:1.7; margin-bottom:6px;}
+  .ft-address p:last-child{margin-bottom:0;}
+  .ft-address strong{color:var(--cream); font-weight:600;}
+  .ft-address a{color:var(--orange); text-decoration:none;}
+  .ft-address a:hover{text-decoration:underline;}
+  .ft-bottom{max-width:1120px; margin:0 auto; padding-top:26px; border-top:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;}
+  .ft-bottom p{font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--muted);}
+  .ft-legal{display:flex; gap:20px; flex-wrap:wrap;}
+  .ft-legal a{font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--muted); text-decoration:none;}
+  .ft-legal a:hover{color:var(--cream);}
+</style>
+</head>
+<body>
+
+<a class="fomo-bar" href="giveaway.html"><span class="live-dot"></span> MISSION TO A MILLION IS LIVE · AUD 1,000,000 IN REWARDS</a>
+
+<nav class="nav">
+  <a class="nav-logo" href="index.html">ULTRA<span>STREAM</span></a>
+  <div class="nav-links">
+    <a class="nav-link" href="creators.html">FOR CREATORS</a>
+    <a class="nav-link active" href="giveaway.html">MISSION TO A MILLION</a>
+    <a class="nav-discord" href="https://discord.gg/yyafp92dp2" target="_blank" rel="noopener">💬 JOIN DISCORD</a>
+    <span class="nav-sep"></span>
+    <a class="nav-store" href="#" aria-label="Download on the App Store" title="Download on the App Store">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.2 12.4c0-2 1.6-3 1.7-3.05-.9-1.35-2.32-1.53-2.82-1.55-1.2-.12-2.34.7-2.95.7-.62 0-1.56-.68-2.56-.66-1.32.02-2.53.77-3.2 1.95-1.37 2.38-.35 5.9 1 7.83.65.95 1.43 2 2.46 1.96.99-.04 1.36-.64 2.55-.64 1.19 0 1.53.63 2.56.61 1.06-.02 1.74-.96 2.39-1.91.42-.62.76-1.28.99-1.98-1.9-.72-2.12-2.6-2.12-3.26z" fill="currentColor"/><path d="M14.4 6.35c.53-.64.88-1.53.78-2.42-.77.03-1.7.51-2.25 1.15-.49.56-.91 1.47-.8 2.34.86.07 1.74-.44 2.27-1.07z" fill="currentColor"/></svg>
+    </a>
+    <a class="nav-store" href="#" aria-label="Get it on Google Play" title="Get it on Google Play">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.4 3.3 14.9 12 4.4 20.7c-.24-.2-.4-.55-.4-1V4.3c0-.45.16-.8.4-1z" fill="currentColor" opacity=".85"/><path d="M16.9 9.9 5.6 3.1c-.3-.18-.6-.2-.85-.05L14.9 12z" fill="currentColor" opacity=".55"/><path d="M14.9 12 4.75 20.95c.25.15.55.13.85-.05l11.3-6.8z" fill="currentColor" opacity=".7"/><path d="m16.9 9.9 2.6 1.56c.62.37.62 1.11 0 1.48L16.9 14.1 14.9 12z" fill="currentColor"/></svg>
+    </a>
+  </div>
+</nav>
+
+<!-- ============ FOLD 1 - HERO + PROGRESS ============ -->
+<section class="give-hero">
+  <div class="hero-grid">
+    <div class="mission-visual">
+      <div class="mv-ring outer"></div>
+      <div class="mv-ring"></div>
+      <div class="mv-core">
+        <span class="mv-tag">MISSION TO A</span>
+        <span class="mv-num">1M</span>
+        <span class="mv-sub">MEMBERS</span>
+      </div>
+      <div class="mv-dot"></div><div class="mv-dot"></div><div class="mv-dot"></div>
+      <div class="mv-dot"></div><div class="mv-dot"></div><div class="mv-dot"></div>
+    </div>
+
+    <div class="hero-content">
+      <h1 class="display">Join UltraStream.<br>Unlock rewards worth <span class="accent">1 million</span>.</h1>
+
+      <div class="mission-callout">🎯 Complete all 6 missions to unlock your entries</div>
+
+      <div class="hero-prize-row">
+        <div class="hero-prize">
+          <div class="hp-icon">💰</div>
+          <div><div class="hp-label">TOTAL REWARD FUND</div><div class="hp-val">AUD 1,000,000</div></div>
+        </div>
+        <div class="hero-prize">
+          <div class="hp-icon">🏆</div>
+          <div><div class="hp-label">FIRST UNLOCK · AT 100K MEMBERS</div><div class="hp-val">AUD 150,000</div></div>
+        </div>
+      </div>
+
+      <button class="btn-primary">JOIN THE MISSION →</button>
+
+      <ul class="enter-steps">
+        <li><span class="es-num">1</span> Sign up and verify your account</li>
+        <li><span class="es-num">2</span> Bring your community, every member counts</li>
+        <li><span class="es-num">3</span> Complete missions and unlock rewards together</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="progress-block">
+    <div class="prog-tag">PRIZES UNLOCK IN PHASES · JOIN BEFORE IT'S TOO LATE</div>
+
+    <div class="prog-count">
+      <div class="target-label">THE TARGET</div>
+      <div class="target-num">1,000,000</div>
+      <div class="current-count"><span class="num">000,001</span> <span class="of">VERIFIED MEMBERS SO FAR</span></div>
+    </div>
+
+    <div class="milestone-wrap">
+      <div class="milestone-track">
+        <div class="milestone-fill"></div>
+        <div class="milestone-marker m-100k">🔒</div>
+        <div class="milestone-marker m-250k">🔒</div>
+        <div class="milestone-marker m-500k">🔒</div>
+        <div class="milestone-marker m-1m">🔒</div>
+
+        <div class="milestone-label m-100k">
+          <div class="ms-num">100K</div>
+          <span class="ms-status locked">LOCKED</span>
+          <div class="ms-rewards">AUD 150,000<br>Creator Prizes</div>
+        </div>
+        <div class="milestone-label m-250k">
+          <div class="ms-num">250K</div>
+          <span class="ms-status locked">LOCKED</span>
+          <div class="ms-rewards"><span class="tbd">Part of the remaining<br>AUD 850,000,<br>detail to follow</span></div>
+        </div>
+        <div class="milestone-label m-500k">
+          <div class="ms-num">500K</div>
+          <span class="ms-status locked">LOCKED</span>
+          <div class="ms-rewards"><span class="tbd">To be announced</span></div>
+        </div>
+        <div class="milestone-label m-1m">
+          <div class="ms-num">1M</div>
+          <span class="ms-status locked">LOCKED</span>
+          <div class="ms-rewards"><span class="tbd">Remaining rewards +<br>global celebration</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+<!-- ============ FOLD 2 - YOUR MISSIONS ============ -->
+<section class="missions-fold">
+  <div class="checklist-block">
+    <div class="checklist-header">
+      <span class="cl-title">YOUR MISSIONS</span>
+      <span class="cl-counter" id="entryCounter">0 / 6 ENTRIES</span>
+    </div>
+    <ul class="checklist" id="missionChecklist">
+      <li class="cl-item" onclick="toggleMission(this)"><span class="cl-check">✓</span><span class="cl-name">Show up: post that you've joined</span><span class="cl-entry">+1 ENTRY</span></li>
+      <li class="cl-item" onclick="toggleMission(this)"><span class="cl-check">✓</span><span class="cl-name">Join the community: join the Discord</span><span class="cl-entry">+1 ENTRY</span></li>
+      <li class="cl-item" onclick="toggleMission(this)"><span class="cl-check">✓</span><span class="cl-name">Create: upload your first content</span><span class="cl-entry">+1 ENTRY</span></li>
+      <li class="cl-item" onclick="toggleMission(this)"><span class="cl-check">✓</span><span class="cl-name">Invite: share your referral link</span><span class="cl-entry">+1 ENTRY</span></li>
+      <li class="cl-item" onclick="toggleMission(this)"><span class="cl-check">✓</span><span class="cl-name">Get featured: send a photo for a shoutout</span><span class="cl-entry">+1 ENTRY</span></li>
+      <li class="cl-item" onclick="toggleMission(this)"><span class="cl-check">✓</span><span class="cl-name">Complete the survey</span><span class="cl-entry">+1 ENTRY</span></li>
+    </ul>
+    <div class="checklist-note">// DEMO ONLY. TAP TO PREVIEW. REAL CHECKLIST SYNCS TO ACCOUNT ON LAUNCH.</div>
+  </div>
+
+  <div class="prog-legend">
+    <div class="invite-line">Bring your friends. Bring your community. Every invite pushes the number closer.</div>
+    <button class="btn-primary share-btn" id="shareBtn" onclick="shareMission()">🔗 COPY & SHARE LINK</button>
+    <div class="note" style="margin-top:16px;">// PLACEHOLDER. WIRE TO LIVE VERIFIED-MEMBER COUNT BEFORE LAUNCH</div>
+  </div>
+  </section>
+
+<!-- ============ FOLD 3 - REWARDS ============ -->
+<section class="breakdown">
+  <div class="breakdown-head">
+    <h2 class="display accent">Every creator who takes part can unlock rewards.</h2>
+    <span class="brush">AUD 1,000,000 total. First unlock: AUD 150,000 at 100K members.</span>
+  </div>
+
+  <div class="fund-summary">
+    <div class="fs-item"><span class="fs-amt">AUD 1,000,000</span><span class="fs-label">TOTAL REWARD FUND</span></div>
+    <div class="fs-arrow">=</div>
+    <div class="fs-item"><span class="fs-amt">AUD 150,000</span><span class="fs-label">FIRST UNLOCK · 100K MEMBERS</span></div>
+    <div class="fs-plus">+</div>
+    <div class="fs-item"><span class="fs-amt">AUD 850,000</span><span class="fs-label">LATER MILESTONES · TBD</span></div>
+  </div>
+
+  <div class="breakdown-grid">
+    <div class="breakdown-card">
+      <h4>CREATOR PRIZES · FIRST UNLOCK</h4>
+      <div class="tier-row"><span><span class="medal">🥇</span>1st place</span><span class="amt">AUD 100,000</span></div>
+      <div class="tier-row"><span><span class="medal">🥈</span>2nd place</span><span class="amt">AUD 25,000</span></div>
+      <div class="tier-row"><span><span class="medal">🥉</span>3rd place</span><span class="amt">AUD 15,000</span></div>
+      <div class="tier-row"><span><span class="medal">🏅</span>4th place</span><span class="amt">AUD 10,000</span></div>
+    </div>
+    <div class="breakdown-card community-card">
+      <h4>REMAINING REWARDS</h4>
+      <div class="big-num">AUD 850,000</div>
+      <p>Unlocks at later milestones as the mission continues. Full detail to follow. Direction: creators reward their communities with experiences and real-world gifts.</p>
+      <div class="note">*Placement isn't decided by community size alone. Completing missions counts too.</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============ FOLD 4 - POSSIBLE FUTURE UNLOCKS ============ -->
+<section class="future">
+  <div class="bonus-card">
+    <h4>POSSIBLE FUTURE UNLOCKS</h4>
+    <div class="sub">Early direction for part of the remaining AUD 850,000. Not yet confirmed, full detail to follow.</div>
+
+    <div class="access-row">
+      <div class="access-card">
+        <div class="access-chip-icon"></div>
+        <div class="ac-name">Squad Legacy Premium Access</div>
+        <span class="ac-status">◷ PROPOSED</span>
+        <div class="ac-barcode"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      </div>
+      <div class="access-card">
+        <div class="access-chip-icon"></div>
+        <div class="ac-name">First Access to Squad Legacy</div>
+        <span class="ac-status">◷ PROPOSED</span>
+        <div class="ac-barcode"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      </div>
+    </div>
+
+    <div class="loot-grid">
+      <div class="loot-card"><div class="loot-icon">🧥</div><div class="loot-name">Skins in the games</div><span class="loot-tag tbd">amount TBD</span></div>
+      <div class="loot-card"><div class="loot-icon">💎</div><div class="loot-name">Gems</div><span class="loot-tag tbd">amount TBD</span></div>
+      <div class="loot-card"><div class="loot-icon">⚔️</div><div class="loot-name">Weapons (Squad Legacy)</div><span class="loot-tag tbd">amount TBD</span></div>
+      <div class="loot-card"><div class="loot-icon">💵</div><div class="loot-name">Cash</div><span class="loot-tag tbd">amount TBD</span></div>
+      <div class="loot-card"><div class="loot-icon">⚡</div><div class="loot-name">XP Points for in-game access</div><span class="loot-tag proposed">proposed</span></div>
+      <div class="loot-card"><div class="loot-icon">🎖</div><div class="loot-name">Referral badges: 10K / 20K</div><span class="loot-tag proposed">proposed</span></div>
+      <div class="loot-card"><div class="loot-icon">⭐</div><div class="loot-name">Top Fans badge</div><span class="loot-tag proposed">proposed</span></div>
+      <div class="loot-card"><div class="loot-icon">👑</div><div class="loot-name">"The Ambassador" title</div><span class="loot-tag proposed">proposed</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOLD 5 - VERIFIED MEMBER ============ -->
+<section class="trust">
+  <div class="trust-inner">
+    <h4>WHAT MAKES SOMEONE A "VERIFIED MEMBER"</h4>
+    <ul>
+      <li>Creates an UltraStream account</li>
+      <li>Verifies their email or mobile</li>
+      <li>Logs into the platform</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="ft-grid">
+    <div>
+      <a class="ft-logo" href="index.html">ULTRA<span>STREAM</span></a>
+      <p class="ft-blurb">The only streaming platform where creators and fans grow together.</p>
+      <p class="ft-about-copy">UltraStream is a live streaming platform operated by Kruzer Ultraverse, forming part of the wider Ultraverse ecosystem. UltraStream allows creators to broadcast live video content and allows viewers to watch, follow, and interact with that content.</p>
+
+      <div class="ft-social">
+        <a class="soc" href="https://discord.gg/yyafp92dp2" target="_blank" rel="noopener" aria-label="Discord" title="Discord">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5h14a1.5 1.5 0 0 1 1.5 1.5v8A1.5 1.5 0 0 1 19 16.5h-5l-3.5 3v-3H5A1.5 1.5 0 0 1 3.5 15V7A1.5 1.5 0 0 1 5 5.5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="9.2" cy="11" r="1.1" fill="currentColor"/><circle cx="14.8" cy="11" r="1.1" fill="currentColor"/></svg>
+        </a>
+        <a class="soc" href="https://www.instagram.com/ultrastream.kruzer?igsh=aDJkMmk4Z2d2eWoz&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4.6" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="16.6" cy="7.4" r="1.05" fill="currentColor"/></svg>
+        </a>
+        <a class="soc" href="https://www.tiktok.com/@ultrastream.kruzer" target="_blank" rel="noopener" aria-label="TikTok" title="TikTok">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4.5v9.2a3.3 3.3 0 1 1-2.6-3.22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M14 4.5c.5 2.3 2 3.7 4.4 3.9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </a>
+        <a class="soc" href="https://facebook.com/share/14ZbBV8NhxM/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.6 20.5v-7h2.4l.4-2.8h-2.8V8.9c0-.8.2-1.35 1.35-1.35h1.5V5.05c-.26-.03-1.16-.11-2.2-.11-2.18 0-3.67 1.33-3.67 3.77v2.1H8.2v2.8h2.38v7z" fill="currentColor"/></svg>
+        </a>
+        <a class="soc" href="https://www.youtube.com/@Ultrastream-platform" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="3.4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10.6 9.6l4.2 2.4-4.2 2.4z" fill="currentColor"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="ft-col">
+      <h4>PLATFORM</h4>
+      <a href="creators.html">Creators</a>
+      <a href="viewers.html">Viewers</a>
+      <a href="giveaway.html">Mission to a Million</a>
+      <a href="about.html">About Us</a>
+      <a href="about.html#faq">FAQ</a>
+      <a href="https://discord.gg/yyafp92dp2" target="_blank" rel="noopener">Discord</a>
+    </div>
+
+    <div class="ft-col">
+      <h4>LEGAL</h4>
+      <a href="terms.html">Terms</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="community-guidelines.html">Community Guidelines</a>
+      <a href="child-safety.html">Child Safety</a>
+    </div>
+
+    <div class="ft-col">
+      <h4>GET THE APP</h4>
+      <a class="store" href="#" aria-label="Download on the App Store">
+        <svg class="store-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.2 12.4c0-2 1.6-3 1.7-3.05-.9-1.35-2.32-1.53-2.82-1.55-1.2-.12-2.34.7-2.95.7-.62 0-1.56-.68-2.56-.66-1.32.02-2.53.77-3.2 1.95-1.37 2.38-.35 5.9 1 7.83.65.95 1.43 2 2.46 1.96.99-.04 1.36-.64 2.55-.64 1.19 0 1.53.63 2.56.61 1.06-.02 1.74-.96 2.39-1.91.42-.62.76-1.28.99-1.98-1.9-.72-2.12-2.6-2.12-3.26z" fill="currentColor"/><path d="M14.4 6.35c.53-.64.88-1.53.78-2.42-.77.03-1.7.51-2.25 1.15-.49.56-.91 1.47-.8 2.34.86.07 1.74-.44 2.27-1.07z" fill="currentColor"/></svg>
+        <span class="store-txt"><small>Download on the</small>App Store</span>
+      </a>
+      <a class="store" href="#" aria-label="Get it on Google Play">
+        <svg class="store-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.4 3.3 14.9 12 4.4 20.7c-.24-.2-.4-.55-.4-1V4.3c0-.45.16-.8.4-1z" fill="currentColor" opacity=".85"/><path d="M16.9 9.9 5.6 3.1c-.3-.18-.6-.2-.85-.05L14.9 12z" fill="currentColor" opacity=".55"/><path d="M14.9 12 4.75 20.95c.25.15.55.13.85-.05l11.3-6.8z" fill="currentColor" opacity=".7"/><path d="m16.9 9.9 2.6 1.56c.62.37.62 1.11 0 1.48L16.9 14.1 14.9 12z" fill="currentColor"/></svg>
+        <span class="store-txt"><small>Get it on</small>Google Play</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="ft-address">
+    <h4>ADDRESS</h4>
+    <p><strong>Email:</strong> <a href="mailto:support@ultrastream.one">support@ultrastream.one</a></p>
+    <p><strong>Postal:</strong> Kruzer Ultraverse Pty Ltd (ABN 62 686 962 783), Level 13, 60 Castlereagh Street, Sydney NSW 2000, Australia</p>
+  </div>
+
+  <div class="ft-bottom">
+    <p>© 2026 KRUZER ULTRAVERSE PTY LTD</p>
+    <div class="ft-legal">
+      <a href="terms.html">Terms &amp; Conditions</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+function toggleMission(item){
+  item.classList.toggle('done');
+  const total = document.querySelectorAll('#missionChecklist .cl-item').length;
+  const done = document.querySelectorAll('#missionChecklist .cl-item.done').length;
+  document.getElementById('entryCounter').textContent = done + ' / ' + total + ' ENTRIES';
+}
+
+function shareMission(){
+  const url = window.location.href;
+  const shareText = "Join the Mission to a Million on UltraStream. Sign up, grow your community, and help unlock AUD 1,000,000 in rewards.";
+  const btn = document.getElementById('shareBtn');
+  const original = btn.innerHTML;
+
+  if(navigator.share){
+    navigator.share({ title: 'UltraStream · Mission to a Million', text: shareText, url: url }).catch(()=>{});
+  } else if(navigator.clipboard){
+    navigator.clipboard.writeText(url).then(()=>{
+      btn.innerHTML = '✓ LINK COPIED!';
+      setTimeout(()=>{ btn.innerHTML = original; }, 2200);
+    });
+  }
+}
+</script>
+
+</body>
+</html>

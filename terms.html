@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UltraStream · Terms &amp; Conditions</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0908; --surface:#16130F; --surface-2:#1E1A14; --line:#2A241C;
+    --orange:#FF5E1A; --orange-deep:#C23A0E; --cream:#F3EEE2; --muted:#9A9285; --gold:#FFB238;
+    --red:#C0392B;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg); color:var(--cream); font-family:'Inter',sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden;}
+  .display{font-family:'Anton',sans-serif; text-transform:uppercase; letter-spacing:0.01em;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  section{position:relative; padding:70px 8vw; border-bottom:1px dashed var(--line);}
+
+  /* banner + nav */
+  .fomo-bar{
+    position:sticky; top:0; z-index:30; display:flex; align-items:center; justify-content:center; gap:10px;
+    background:linear-gradient(90deg,#E09A22,var(--gold) 45%,#FFD27A); color:#1a0d05;
+    font-family:'JetBrains Mono',monospace; font-weight:800; font-size:12.5px; letter-spacing:0.04em;
+    padding:10px 16px; text-align:center; text-decoration:none;
+  }
+  .fomo-bar .live-dot{width:8px; height:8px; border-radius:50%; background:#1a0d05; animation:blink 1.1s infinite;}
+  @keyframes blink{0%,100%{opacity:1;} 50%{opacity:0.2;}}
+  .nav{
+    position:sticky; top:36px; z-index:20; display:flex; align-items:center; justify-content:space-between;
+    padding:17px 8vw; background:rgba(10,9,8,0.9); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);
+  }
+  .nav-logo{font-family:'Anton',sans-serif; font-size:18px; text-decoration:none; color:var(--cream);}
+  .nav-logo span{color:var(--orange);}
+  .nav-links{display:flex; align-items:center; gap:24px;}
+  .nav-link{font-family:'JetBrains Mono',monospace; font-size:12.5px; letter-spacing:0.05em; color:var(--muted); text-decoration:none;}
+  .nav-link:hover{color:var(--cream);}
+  .nav-store{
+    width:34px; height:34px; border-radius:9px; display:inline-flex; align-items:center; justify-content:center;
+    background:var(--surface-2); border:1px solid var(--line); color:var(--cream); text-decoration:none;
+    transition:border-color .15s ease, transform .15s ease, color .15s ease; flex-shrink:0;
+  }
+  .nav-store svg{width:18px; height:18px;}
+  .nav-store:hover{border-color:var(--orange); color:var(--orange); transform:translateY(-1px);}
+  .nav-sep{width:1px; height:20px; background:var(--line); flex-shrink:0;}
+  .nav-discord{
+    display:inline-flex; align-items:center; gap:7px; font-family:'JetBrains Mono',monospace; font-weight:700; font-size:12.5px;
+    color:#1a0d05; background:linear-gradient(135deg,var(--orange),var(--gold)); padding:9px 17px;
+    border-radius:999px; text-decoration:none; box-shadow:0 6px 20px rgba(255,94,26,0.3);
+  }
+  @media(max-width:760px){
+    .nav{flex-direction:column; gap:14px;}
+    .nav-links{flex-wrap:wrap; justify-content:center; gap:16px;}
+    .nav-sep{display:none;}
+  }
+
+  /* ===== legal hero card ===== */
+  .legal-hero-wrap{padding:44px 6vw 0; border-bottom:none;}
+  .legal-hero{
+    max-width:1160px; margin:0 auto; background:var(--surface); border:1px solid var(--line);
+    border-radius:20px; padding:46px clamp(26px,4vw,56px) 38px;
+  }
+  .lh-pill{
+    display:inline-flex; align-items:center; gap:9px; font-family:'JetBrains Mono',monospace; font-size:11px;
+    font-weight:700; letter-spacing:0.14em; color:var(--orange);
+    border:1px solid rgba(255,94,26,0.45); background:rgba(255,94,26,0.07);
+    padding:8px 16px; border-radius:999px; margin-bottom:26px;
+  }
+  .lh-pill .d{width:6px; height:6px; border-radius:50%; background:var(--orange);}
+  .legal-hero h1{
+    font-family:'Anton',sans-serif; text-transform:none; letter-spacing:0;
+    font-size:clamp(34px,6vw,66px); line-height:1.02; margin-bottom:20px; color:var(--cream);
+  }
+  .legal-hero h1 span{color:var(--orange);}
+  .lh-desc{color:var(--muted); font-size:clamp(14.5px,1.7vw,17px); line-height:1.65; max-width:56ch; margin-bottom:34px;}
+  .lh-meta{display:flex; gap:clamp(26px,5vw,64px); flex-wrap:wrap; padding-top:26px; border-top:1px solid var(--line);}
+  .lh-meta .m-val{font-size:15px; font-weight:700; color:var(--cream); margin-bottom:5px;}
+  .lh-meta .m-lbl{font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:0.12em; color:var(--muted);}
+
+  /* ===== two column body ===== */
+  .legal-body{border-bottom:none; padding-top:44px; padding-bottom:90px;}
+  .legal-grid{
+    max-width:1160px; margin:0 auto; display:grid; grid-template-columns:262px 1fr; gap:clamp(28px,4vw,64px);
+    align-items:start;
+  }
+  @media(max-width:940px){.legal-grid{grid-template-columns:1fr;}}
+
+  /* chapters sidebar */
+  .chapters{
+    position:sticky; top:110px; background:var(--surface); border:1px solid var(--line);
+    border-radius:16px; padding:24px 22px;
+  }
+  @media(max-width:940px){.chapters{position:static;}}
+  .chapters h4{
+    font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.16em; color:var(--orange); margin-bottom:16px;
+  }
+  .chapters ol{list-style:none;}
+  .chapters li{margin-bottom:3px;}
+  .chapters a{
+    display:flex; gap:10px; align-items:flex-start; text-decoration:none; padding:7px 10px;
+    border-left:2px solid transparent; border-radius:0 7px 7px 0; transition:background .15s ease, border-color .15s ease;
+  }
+  .chapters a:hover{background:var(--surface-2);}
+  .chapters a .n{
+    font-family:'JetBrains Mono',monospace; font-size:9.5px; color:var(--orange); flex-shrink:0; padding-top:2px; opacity:0.85;
+  }
+  .chapters a .t{font-size:12.5px; line-height:1.4; color:var(--muted);}
+  .chapters a.active{background:var(--surface-2); border-left-color:var(--orange);}
+  .chapters a.active .t{color:var(--cream); font-weight:600;}
+
+  .report-box{
+    margin-top:20px; background:rgba(192,57,43,0.1); border:1px solid rgba(192,57,43,0.4);
+    border-radius:12px; padding:16px 16px 18px;
+  }
+  .report-box p{font-size:11.5px; line-height:1.6; color:var(--muted); margin-bottom:12px;}
+  .report-box a{
+    display:block; text-align:center; background:var(--red); color:#fff; text-decoration:none;
+    font-size:11.5px; font-weight:700; padding:10px 12px; border-radius:8px; line-height:1.35;
+  }
+  .report-box a:hover{background:#d1493a;}
+
+  /* content column */
+  .legal-content{max-width:760px; min-width:0;}
+  .chap{padding-bottom:8px; margin-bottom:44px; scroll-margin-top:120px;}
+  .chap:last-child{margin-bottom:0;}
+  .chap-eyebrow{
+    display:inline-block; font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700;
+    letter-spacing:0.14em; color:var(--orange); background:rgba(255,94,26,0.08);
+    border:1px solid rgba(255,94,26,0.3); padding:5px 11px; border-radius:6px; margin-bottom:18px;
+  }
+  .legal-content h2{
+    font-family:'Anton',sans-serif; text-transform:none; letter-spacing:0;
+    font-size:clamp(22px,3vw,32px); line-height:1.15; margin-bottom:18px; color:var(--cream);
+  }
+  .legal-content h3{font-size:16px; font-weight:700; color:var(--cream); margin:26px 0 10px;}
+  .legal-content p{color:var(--muted); font-size:14.5px; line-height:1.8; margin-bottom:15px;}
+  .legal-content ul{list-style:none; margin:0 0 18px;}
+  .legal-content ul li{
+    color:var(--muted); font-size:14.5px; line-height:1.75; padding-left:20px; margin-bottom:9px; position:relative;
+  }
+  .legal-content ul li::before{
+    content:''; position:absolute; left:2px; top:11px; width:5px; height:5px; border-radius:50%; background:var(--orange);
+  }
+  .legal-content a{color:var(--orange); text-decoration:none;}
+  .legal-content a:hover{text-decoration:underline;}
+  .legal-content strong{color:var(--cream); font-weight:600;}
+
+  /* definition rows */
+  .defs{margin:0 0 18px;}
+  .def{padding:14px 0; border-bottom:1px solid var(--line);}
+  .def:last-child{border-bottom:none;}
+  .def .dt{font-size:14.5px; font-weight:700; color:var(--orange); margin-bottom:5px;}
+  .def .dd{color:var(--muted); font-size:14px; line-height:1.7;}
+
+  /* data table */
+  .ltable{width:100%; border-collapse:collapse; margin:0 0 20px; font-size:13.5px;}
+  .ltable th{
+    text-align:left; font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:0.1em;
+    color:var(--orange); padding:11px 14px; background:var(--surface-2); border:1px solid var(--line);
+  }
+  .ltable td{padding:12px 14px; border:1px solid var(--line); color:var(--muted); line-height:1.65; vertical-align:top;}
+  .ltable td:first-child{color:var(--cream); font-weight:600;}
+
+  /* numbered step list */
+  .steps{margin:0 0 20px;}
+  .step{display:flex; gap:14px; align-items:flex-start; margin-bottom:14px;}
+  .step .sn{
+    width:28px; height:28px; border-radius:50%; flex-shrink:0; background:rgba(255,94,26,0.13);
+    border:1px solid var(--orange); color:var(--orange); font-family:'JetBrains Mono',monospace;
+    font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center;
+  }
+  .step .sc{color:var(--muted); font-size:14.5px; line-height:1.7; padding-top:3px;}
+
+  /* callouts */
+  .callout{
+    background:var(--surface-2); border-left:3px solid var(--orange); border-radius:0 12px 12px 0;
+    padding:18px 22px; margin:0 0 20px;
+  }
+  .callout p{margin-bottom:0; font-size:14px;}
+  .callout.warn{border-left-color:var(--gold); background:rgba(255,178,56,0.07);}
+
+  /* helpline grid */
+  .helplines{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:0 0 20px;}
+  @media(max-width:560px){.helplines{grid-template-columns:1fr;}}
+  .helpline{background:var(--surface-2); border:1px solid var(--line); border-radius:11px; padding:15px 17px;}
+  .helpline .hl-c{font-family:'JetBrains Mono',monospace; font-size:9.5px; letter-spacing:0.1em; color:var(--muted); margin-bottom:6px;}
+  .helpline .hl-n{font-size:14px; font-weight:700; color:var(--cream); line-height:1.4;}
+
+  /* contact block */
+  .contact-block{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:22px 24px;}
+  .contact-block p{margin-bottom:8px; font-size:14px;}
+  .contact-block p:last-child{margin-bottom:0;}
+
+  /* footer */
+  footer{padding:70px 8vw 34px; border-bottom:none; background:var(--bg);}
+  .ft-grid{display:grid; grid-template-columns:1.8fr 1fr 1fr 1.1fr; gap:34px; max-width:1120px; margin:0 auto 46px;}
+  @media(max-width:900px){.ft-grid{grid-template-columns:1fr 1fr; gap:34px;}}
+  @media(max-width:520px){.ft-grid{grid-template-columns:1fr;}}
+  .ft-logo{font-family:'Anton',sans-serif; font-size:22px; color:var(--cream); margin-bottom:12px; display:inline-block; text-decoration:none;}
+  .ft-logo span{color:var(--orange);}
+  .ft-about-copy{
+    font-size:12.5px; color:var(--muted); line-height:1.75; margin-top:12px; max-width:46ch;
+  }
+  .ft-blurb{font-size:13.5px; color:var(--cream); font-weight:600; line-height:1.55; max-width:38ch;}
+  .ft-col h4{font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.14em; color:var(--orange); margin-bottom:15px;}
+  .ft-col a, .ft-col p{display:block; font-size:13px; color:var(--muted); text-decoration:none; margin-bottom:10px; line-height:1.55;}
+  .ft-col a:hover{color:var(--cream);}
+  .ft-social{display:flex; gap:10px; margin-top:18px;}
+  .ft-social .soc{
+    width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center;
+    background:var(--surface-2); border:1px solid var(--line); color:var(--muted);
+    transition:color .15s ease, border-color .15s ease, transform .15s ease;
+  }
+  .ft-social .soc svg{width:19px; height:19px;}
+  .ft-social .soc:hover{color:var(--orange); border-color:var(--orange); transform:translateY(-2px);}
+  .ft-col .store{
+    display:flex; align-items:center; gap:10px; background:var(--surface-2); border:1px solid var(--line);
+    border-radius:9px; padding:9px 14px; margin-bottom:9px; color:var(--cream);
+    transition:border-color .15s ease, transform .15s ease;
+  }
+  .ft-col .store:hover{border-color:var(--orange); transform:translateY(-2px); color:var(--cream);}
+  .store-ico{width:20px; height:20px; flex-shrink:0; color:var(--cream);}
+  .store-txt{display:flex; flex-direction:column; line-height:1.15; font-size:13px; font-weight:700; margin:0;}
+  .store-txt small{font-size:8.5px; font-weight:500; letter-spacing:0.06em; color:var(--muted); text-transform:uppercase;}
+  .ft-discord{
+    display:inline-flex; align-items:center; gap:7px; font-family:'JetBrains Mono',monospace; font-weight:700; font-size:11.5px;
+    color:#1a0d05; background:linear-gradient(135deg,var(--orange),var(--gold)); padding:8px 15px;
+    border-radius:999px; text-decoration:none; margin-top:4px;
+  }
+  .ft-address{
+    max-width:1120px; margin:0 auto 34px; padding-top:30px; border-top:1px solid var(--line);
+  }
+  .ft-address h4{
+    font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.14em; color:var(--orange); margin-bottom:13px;
+  }
+  .ft-address p{color:var(--muted); font-size:13px; line-height:1.7; margin-bottom:6px;}
+  .ft-address p:last-child{margin-bottom:0;}
+  .ft-address strong{color:var(--cream); font-weight:600;}
+  .ft-address a{color:var(--orange); text-decoration:none;}
+  .ft-address a:hover{text-decoration:underline;}
+  .ft-bottom{
+    max-width:1120px; margin:0 auto; padding-top:26px; border-top:1px solid var(--line);
+    display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+  }
+  .ft-bottom p{font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--muted);}
+  .ft-legal{display:flex; gap:20px; flex-wrap:wrap;}
+  .ft-legal a{font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--muted); text-decoration:none;}
+  .ft-legal a:hover{color:var(--cream);}
+</style>
+</head>
+<body>
+
+<a class="fomo-bar" href="giveaway.html"><span class="live-dot"></span> MISSION TO A MILLION IS LIVE · AUD 1,000,000 IN REWARDS</a>
+
+<nav class="nav">
+  <a class="nav-logo" href="index.html">ULTRA<span>STREAM</span></a>
+  <div class="nav-links">
+    <a class="nav-link" href="creators.html">FOR CREATORS</a>
+    <a class="nav-link" href="giveaway.html">MISSION TO A MILLION</a>
+    <a class="nav-discord" href="https://discord.gg/yyafp92dp2" target="_blank" rel="noopener">💬 JOIN DISCORD</a>
+    <span class="nav-sep"></span>
+    <a class="nav-store" href="#" aria-label="Download on the App Store" title="Download on the App Store">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.2 12.4c0-2 1.6-3 1.7-3.05-.9-1.35-2.32-1.53-2.82-1.55-1.2-.12-2.34.7-2.95.7-.62 0-1.56-.68-2.56-.66-1.32.02-2.53.77-3.2 1.95-1.37 2.38-.35 5.9 1 7.83.65.95 1.43 2 2.46 1.96.99-.04 1.36-.64 2.55-.64 1.19 0 1.53.63 2.56.61 1.06-.02 1.74-.96 2.39-1.91.42-.62.76-1.28.99-1.98-1.9-.72-2.12-2.6-2.12-3.26z" fill="currentColor"/><path d="M14.4 6.35c.53-.64.88-1.53.78-2.42-.77.03-1.7.51-2.25 1.15-.49.56-.91 1.47-.8 2.34.86.07 1.74-.44 2.27-1.07z" fill="currentColor"/></svg>
+    </a>
+    <a class="nav-store" href="#" aria-label="Get it on Google Play" title="Get it on Google Play">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.4 3.3 14.9 12 4.4 20.7c-.24-.2-.4-.55-.4-1V4.3c0-.45.16-.8.4-1z" fill="currentColor" opacity=".85"/><path d="M16.9 9.9 5.6 3.1c-.3-.18-.6-.2-.85-.05L14.9 12z" fill="currentColor" opacity=".55"/><path d="M14.9 12 4.75 20.95c.25.15.55.13.85-.05l11.3-6.8z" fill="currentColor" opacity=".7"/><path d="m16.9 9.9 2.6 1.56c.62.37.62 1.11 0 1.48L16.9 14.1 14.9 12z" fill="currentColor"/></svg>
+    </a>
+  </div>
+</nav>
+
+<section class="legal-hero-wrap">
+  <div class="legal-hero">
+    <div class="lh-pill"><span class="d"></span> IN EFFECT FROM 1 AUGUST 2026</div>
+    <h1>Terms &amp; <span>Conditions</span></h1>
+    <p class="lh-desc">The agreement between you and Kruzer Ultraverse Pty Ltd governing your use of the UltraStream mobile application.</p>
+    <div class="lh-meta">
+      <div><div class="m-val">iOS &amp; Android</div><div class="m-lbl">APPLIES TO</div></div>
+      <div><div class="m-val">1 August 2026</div><div class="m-lbl">EFFECTIVE DATE</div></div>
+      <div><div class="m-val">1 August 2026</div><div class="m-lbl">LAST UPDATED</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="legal-body">
+  <div class="legal-grid">
+
+    <aside>
+      <nav class="chapters">
+        <h4>CHAPTERS</h4>
+        <ol>
+        <li><a href="#c1"><span class="n">01</span><span class="t">Acceptance of these Terms</span></a></li>
+        <li><a href="#c2"><span class="n">02</span><span class="t">About UltraStream</span></a></li>
+        <li><a href="#c3"><span class="n">03</span><span class="t">Eligibility and age requirements</span></a></li>
+        <li><a href="#c4"><span class="n">04</span><span class="t">Your account</span></a></li>
+        <li><a href="#c5"><span class="n">05</span><span class="t">The Founding Creator Programme</span></a></li>
+        <li><a href="#c6"><span class="n">06</span><span class="t">Rewards and contributions</span></a></li>
+        <li><a href="#c7"><span class="n">07</span><span class="t">Revenue share and creator payments</span></a></li>
+        <li><a href="#c8"><span class="n">08</span><span class="t">Content you post or stream</span></a></li>
+        <li><a href="#c9"><span class="n">09</span><span class="t">Acceptable use</span></a></li>
+        <li><a href="#c10"><span class="n">10</span><span class="t">Content moderation and reporting</span></a></li>
+        <li><a href="#c11"><span class="n">11</span><span class="t">Intellectual property</span></a></li>
+        <li><a href="#c12"><span class="n">12</span><span class="t">Third-party services</span></a></li>
+        <li><a href="#c13"><span class="n">13</span><span class="t">Disclaimers</span></a></li>
+        <li><a href="#c14"><span class="n">14</span><span class="t">Limitation of liability</span></a></li>
+        <li><a href="#c15"><span class="n">15</span><span class="t">Indemnity</span></a></li>
+        <li><a href="#c16"><span class="n">16</span><span class="t">Suspension and termination</span></a></li>
+        <li><a href="#c17"><span class="n">17</span><span class="t">Changes to the App and these Terms</span></a></li>
+        <li><a href="#c18"><span class="n">18</span><span class="t">Governing law and disputes</span></a></li>
+        <li><a href="#c19"><span class="n">19</span><span class="t">General</span></a></li>
+        <li><a href="#c20"><span class="n">20</span><span class="t">Contact us</span></a></li>
+        </ol>
+      </nav>
+    </aside>
+
+    <div class="legal-content">
+      <div class="chap" id="c1">
+        <span class="chap-eyebrow">01 &middot; Acceptance</span>
+        <h2>Acceptance of these Terms</h2>
+
+        <p>These Terms &amp; Conditions ("Terms") are a legal agreement between you and Kruzer Ultraverse Pty Ltd (ABN 62 686 962 783) ("Kruzer Ultraverse", "we", "us", or "our") governing your access to and use of the UltraStream mobile application (the "App").</p>
+        <p>By downloading, installing, registering for an account on, or otherwise using the App, you agree to be bound by these Terms. If you do not agree, you must not use the App.</p>
+        <p>These Terms should be read together with the <a href="privacy.html">UltraStream Privacy Policy</a>, which explains how we collect and use your personal information.</p>
+        <div class="callout warn"><p>Some features referred to in these Terms, including age-gated content, reward checkout, and creator withdrawals, are being progressively rolled out and may not yet be fully available in the current release.</p></div>
+        <h3>Definitions</h3>
+        <div class="defs">
+          <div class="def"><div class="dt">User</div><div class="dd">Anyone who creates an account and uses the App, whether as a Viewer, a Creator, or both.</div></div>
+          <div class="def"><div class="dt">Viewer</div><div class="dd">A User who watches, follows, comments on, or otherwise interacts with content on the App, including by rewarding Creators.</div></div>
+          <div class="def"><div class="dt">Creator</div><div class="dd">A User who has completed creator onboarding and streams, uploads, schedules, or otherwise publishes content on the App.</div></div>
+          <div class="def"><div class="dt">You</div><div class="dd">Refers to whichever of the above applies to you at the relevant time. Every User is a Viewer by default; you become a Creator once you complete creator onboarding. Where a provision applies only to Viewers or only to Creators, this is stated expressly.</div></div>
+        </div>
+      </div>
+      <div class="chap" id="c2">
+        <span class="chap-eyebrow">02 &middot; Platform</span>
+        <h2>About UltraStream</h2>
+
+        <p>UltraStream is a live streaming platform operated by Kruzer Ultraverse, forming part of the wider Ultraverse ecosystem. UltraStream allows creators to broadcast live video content and allows viewers to watch, follow, and interact with that content.</p>
+      </div>
+      <div class="chap" id="c3">
+        <span class="chap-eyebrow">03 &middot; Eligibility</span>
+        <h2>Eligibility and age requirements</h2>
+
+        <ul>
+          <li>You must be at least 18 years old to create an account and use the App as a Viewer.</li>
+          <li>You must be at least 18 years old to register as a Creator and to receive revenue-share payouts, because our payment processor's identity-verification requirements apply to payees aged 18 and over.</li>
+          <li>If you are under 18, you confirm that a parent or guardian has reviewed and agreed to these Terms on your behalf where required by applicable law.</li>
+          <li>You must have the legal capacity to enter into a binding agreement in your jurisdiction.</li>
+          <li>Where age verification is active, we use a third-party provider (Yoti) to estimate your age from a short video or image, and use the resulting age tier to determine which content is shown to you. This feature is in development and not yet enforced in the current release.</li>
+        </ul>
+        <h3>Age assurance</h3>
+        <p>UltraStream is intended for users aged 18 and over. Consistent with the Online Safety Act 2021 (Cth) and the Online Safety Amendment (Social Media Minimum Age) Act 2024 (Cth), we take reasonable steps to prevent people under 18 from creating or keeping an account, including age-assurance checks at sign-up and on an ongoing basis. If we cannot reasonably satisfy ourselves that you are at least 18, we may decline, suspend, or close your account. We keep age-related information only for as long as needed for this purpose and handle it in accordance with the Privacy Policy.</p>
+      </div>
+      <div class="chap" id="c4">
+        <span class="chap-eyebrow">04 &middot; Account</span>
+        <h2>Your account</h2>
+
+        <ul>
+          <li>You can create an account using Google, Apple, or email. If you sign up with Google or Apple, you authorise us to receive basic profile information from that provider as described in the Privacy Policy.</li>
+          <li>You are responsible for maintaining the confidentiality of your account credentials and for all activity that occurs under your account.</li>
+          <li>You must provide accurate and complete information when registering, including your handle, and keep it up to date. Handles can be changed at any time but are then locked for 30 days.</li>
+          <li>You must notify us promptly at <a href="mailto:admin@kruzer.com.au">admin@kruzer.com.au</a> if you become aware of any unauthorised use of your account.</li>
+          <li>We may suspend or terminate your account if information you provide is inaccurate, false, or misleading.</li>
+        </ul>
+      </div>
+      <div class="chap" id="c5">
+        <span class="chap-eyebrow">05 &middot; Founding Creator Programme</span>
+        <h2>The Founding Creator Programme</h2>
+
+        <p>From time to time we may run creator acquisition programmes, referral schemes, or competitions through the App, such as the Founding Creator Programme. Any such programme operates under separate terms made available at the time, and only where it complies with applicable trade-promotion and prize laws, including any required permits. Nothing in these Terms is an offer to enter any competition.</p>
+      </div>
+      <div class="chap" id="c6">
+        <span class="chap-eyebrow">06 &middot; Rewards</span>
+        <h2>Rewards and contributions</h2>
+
+        <p>Squad Legacy items are digital cosmetic items used to support Creators within the App. They have no cash value, are not redeemable or exchangeable for money, are not transferable outside the App, and are not currency, a financial product, a security, or any form of crypto-asset. Buying an item is a payment for that in-app item, not an investment, deposit, or right to any return.</p>
+        <p>Viewers may reward Creators using Squad Legacy items, selected and purchased in a chosen quantity at checkout. Reward checkout is processed through Stripe.</p>
+        <ul>
+          <li>Your reward purchase and payment details are processed by Stripe as described in the Privacy Policy.</li>
+          <li>After your first contribution, a summary of your contributions appears on your Profile tab, and a full record is available in your Transaction Log.</li>
+          <li>Reward checkout via Stripe is in development and not yet processable end-to-end in the current release.</li>
+        </ul>
+        <p>Rewards are a way of supporting Creators through the App and do not constitute an investment, financial product, or right to any return.</p>
+        <h3>Refunds and cancellations</h3>
+        <p>Reward purchases are generally final. Once a reward has been delivered to a Creator, we are typically unable to reverse it, because doing so affects that Creator's earnings.</p>
+        <p>We will provide a refund or correct a transaction where:</p>
+        <ul>
+          <li>the payment was processed due to a technical error or was charged more than once</li>
+          <li>the purchase was unauthorised, for example as a result of fraud on your payment method</li>
+          <li>you are entitled to a remedy under the Australian Consumer Law or other consumer protection law that applies to you and cannot be excluded</li>
+        </ul>
+        <p>To request a refund, contact us at <a href="mailto:admin@kruzer.com.au">admin@kruzer.com.au</a> within 14 days of the transaction, quoting your Transaction Log reference. We may decline requests made outside these circumstances or after this window.</p>
+        <p>If you raise a dispute with your bank or Stripe before contacting us, we may pause the disputed transaction and any related payout while it is investigated.</p>
+        <p>If a reward is refunded or reversed, for example a chargeback, after the related amount has been paid to a Creator, we may offset the reversed amount against that Creator's future earnings. We will notify the Creator and will not seek recovery beyond the reversed amount. Where the reversal results from our error, we bear the cost.</p>
+      </div>
+      <div class="chap" id="c7">
+        <span class="chap-eyebrow">07 &middot; Payments</span>
+        <h2>Revenue share and creator payments</h2>
+
+        <p>Eligible Creators receive a 97% revenue share on qualifying earnings generated through the App, with a 3% platform fee retained by Kruzer Ultraverse.</p>
+        <ul>
+          <li>Payouts are calculated on a fortnightly (14-day) payout period and withdrawn to your preferred payout method.</li>
+          <li>Payouts are processed through Stripe. To receive payouts, you must complete Stripe's identity verification (KYC) process and provide accurate bank and tax details.</li>
+          <li>Creator withdrawals, including payout method setup and disbursement, are in development and not yet available in the current release.</li>
+          <li>You are responsible for any taxes owed on amounts you earn through the App.</li>
+          <li>We may withhold, delay, or reverse a payout only where we reasonably suspect fraud, a breach of these Terms, or where required by law, and only for as long as reasonably necessary to investigate or comply. We will tell you the reason unless the law prevents us.</li>
+          <li>There is no minimum payout threshold.</li>
+        </ul>
+        <p>Kruzer Ultraverse retains only a 3% platform fee on qualifying earnings. Stripe's payment-processing fees are separate and are deducted from the Creator's payout in addition to that 3%, so the amount a Creator ultimately receives reflects the 97% revenue share before Stripe's processing fees are deducted.</p>
+      </div>
+      <div class="chap" id="c8">
+        <span class="chap-eyebrow">08 &middot; Content</span>
+        <h2>Content you post or stream</h2>
+
+        <p>"Your Content" means any video, audio, chat message, image, or other material you submit, stream, or post through the App.</p>
+        <ul>
+          <li>You retain ownership of Your Content.</li>
+          <li>By submitting Your Content, you grant Kruzer Ultraverse a non-exclusive, worldwide, royalty-free licence to host, store, reproduce, transmit, and display Your Content solely for the purpose of operating, promoting, and improving the App.</li>
+          <li>You are solely responsible for Your Content and confirm that you have all rights necessary to post it and that it does not infringe any third party's rights.</li>
+          <li>We do not claim ownership of Your Content, and this licence ends when Your Content is removed from the App, except where retention is required for legal, backup, or dispute-resolution purposes.</li>
+        </ul>
+      </div>
+      <div class="chap" id="c9">
+        <span class="chap-eyebrow">09 &middot; Conduct</span>
+        <h2>Acceptable use</h2>
+
+        <p>When using the App, you must not:</p>
+        <ul>
+          <li>Stream, post, or send content that is unlawful, defamatory, harassing, hateful, sexually exploitative of minors, or that incites violence</li>
+          <li>Infringe the intellectual property, privacy, or other rights of any person</li>
+          <li>Impersonate any person or misrepresent your affiliation with any person or entity</li>
+          <li>Use the App to distribute malware, spam, or engage in fraudulent activity, including manipulating viewer counts, referrals, or payouts</li>
+          <li>Attempt to circumvent, disable, or interfere with security features of the App</li>
+          <li>Use automated means to access the App except as we expressly permit</li>
+        </ul>
+        <p>We may remove content, suspend features, or take other action reasonably necessary to enforce this section.</p>
+      </div>
+      <div class="chap" id="c10">
+        <span class="chap-eyebrow">10 &middot; Safety</span>
+        <h2>Content moderation and reporting</h2>
+
+        <p>We may review, moderate, restrict, or remove content that we reasonably believe breaches these Terms or applicable law, including through automated tools and user reports.</p>
+        <h3>Keeping the platform safe</h3>
+        <p>We design and operate the App with the safety and best interests of younger users in mind, consistent with the Basic Online Safety Expectations and applicable safety codes. We use a combination of proactive tools, human review, and user reporting to detect and act on harmful content and conduct.</p>
+        <p>You can report content or behaviour in-app or at <a href="mailto:admin@kruzer.com.au">admin@kruzer.com.au</a>. If you have a serious online-safety concern we have not resolved, you can also contact the eSafety Commissioner at <a href="https://esafety.gov.au" target="_blank" rel="noopener">esafety.gov.au</a>. We prohibit and act on child sexual exploitation material and other unlawful content.</p>
+        <h3>Copyright: notice and takedown</h3>
+        <p>If you believe content on the App infringes your copyright, email <a href="mailto:admin@kruzer.com.au">admin@kruzer.com.au</a> with: your contact details; identification of the work; the content complained of and where it appears; a statement of good-faith belief that the use is not authorised; and a statement that the information is accurate and you are authorised to act. We remove or disable infringing content and terminate repeat infringers.</p>
+        <h3>Notice and action (EU users)</h3>
+        <p>Under the Digital Services Act you can notify us of illegal content through the same channel above. We act in a timely, non-arbitrary way, give affected users a statement of reasons for moderation decisions, and provide a point of contact at <a href="mailto:admin@kruzer.com.au">admin@kruzer.com.au</a>.</p>
+        <p>Details of our strikes and appeals process for Creators are set out in our <a href="community-guidelines.html">Community Guidelines</a>.</p>
+      </div>
+      <div class="chap" id="c11">
+        <span class="chap-eyebrow">11 &middot; IP</span>
+        <h2>Intellectual property</h2>
+
+        <p>The App, including its software, design, trademarks (including the Ultraverse and UltraStream names and logos), and underlying technology, is owned by Kruzer Ultraverse or its licensors and is protected by intellectual property laws. Except for the limited licence to use the App as intended, these Terms do not grant you any rights in our intellectual property.</p>
+      </div>
+      <div class="chap" id="c12">
+        <span class="chap-eyebrow">12 &middot; Integrations</span>
+        <h2>Third-party services</h2>
+
+        <p>The App integrates with third-party services, including Stripe for payments and identity verification, Yoti for age verification, Google and Apple for account sign-in, and referral or competition tracking tools used for creator programmes. Your use of those services may also be subject to the relevant third party's own terms and privacy policy.</p>
+      </div>
+      <div class="chap" id="c13">
+        <span class="chap-eyebrow">13 &middot; Disclaimers</span>
+        <h2>Disclaimers</h2>
+
+        <p>The App is provided "as is" and "as available". To the maximum extent permitted by law, we exclude all warranties, whether express or implied, regarding the App, including as to availability, accuracy, or fitness for a particular purpose. Nothing in these Terms excludes any consumer guarantee that cannot lawfully be excluded, including under the Australian Consumer Law.</p>
+      </div>
+      <div class="chap" id="c14">
+        <span class="chap-eyebrow">14 &middot; Liability</span>
+        <h2>Limitation of liability</h2>
+
+        <p>To the maximum extent permitted by law, Kruzer Ultraverse will not be liable for any indirect, incidental, special, or consequential loss arising from your use of the App, including loss of revenue, data, or goodwill. Where liability cannot be excluded, it is limited, at our option, to re-supplying the relevant service or paying the cost of having it re-supplied.</p>
+        <p>Where our liability cannot be excluded but can be limited, our total liability to you for all claims arising in any 12-month period is limited to the greater of (a) the fees you paid through the App in that period and (b) AUD 100, except for liability that cannot be limited under the Australian Consumer Law.</p>
+      </div>
+      <div class="chap" id="c15">
+        <span class="chap-eyebrow">15 &middot; Indemnity</span>
+        <h2>Indemnity</h2>
+
+        <p>You are responsible for loss we suffer to the extent it is caused by your breach of these Terms, Your Content, or your unlawful misuse of the App. You are not liable for loss to the extent it was caused by us or that we could reasonably have avoided, and nothing in this section requires you to indemnify us for our own negligence or breach or beyond what the law permits.</p>
+      </div>
+      <div class="chap" id="c16">
+        <span class="chap-eyebrow">16 &middot; Ending your use</span>
+        <h2>Suspension and termination</h2>
+
+        <ul>
+          <li>You may stop using the App and close your account at any time.</li>
+          <li>We may suspend or restrict your access where reasonably necessary, for example to investigate a suspected breach, to comply with law, or to protect users or the App.</li>
+          <li>Except where the law or an urgent safety or security risk requires immediate action, we will give you reasonable notice and an opportunity to respond, and will limit any suspension or termination to what is reasonably necessary.</li>
+          <li>Sections relating to intellectual property, content licences, disclaimers, limitation of liability, and indemnity survive termination.</li>
+          <li>Any revenue share earned but not yet paid out at the time of termination will be paid in accordance with Section 7, subject to completed identity verification.</li>
+        </ul>
+      </div>
+      <div class="chap" id="c17">
+        <span class="chap-eyebrow">17 &middot; Updates</span>
+        <h2>Changes to the App and these Terms</h2>
+
+        <p>We may update the App and these Terms from time to time. If we make a change that materially and adversely affects your rights, we will give you reasonable advance notice, for example by email or an in-app notification, before it takes effect, and will seek your consent where required by law. If you do not agree to a material change, you may stop using the App and close your account before it takes effect.</p>
+      </div>
+      <div class="chap" id="c18">
+        <span class="chap-eyebrow">18 &middot; Disputes</span>
+        <h2>Governing law and dispute resolution</h2>
+
+        <p>These Terms are governed by the laws of New South Wales, Australia, and you and Kruzer Ultraverse submit to the non-exclusive jurisdiction of the courts of New South Wales.</p>
+        <p>Nothing in this section limits your right to complain to a regulator or to pursue rights under consumer law that cannot be excluded. Please contact us first at <a href="mailto:admin@kruzer.com.au">admin@kruzer.com.au</a> so we can try to resolve any dispute informally.</p>
+      </div>
+      <div class="chap" id="c19">
+        <span class="chap-eyebrow">19 &middot; General</span>
+        <h2>General</h2>
+
+        <ul>
+          <li>If any provision of these Terms is found unenforceable, the remaining provisions continue in full force.</li>
+          <li>These Terms, together with the Privacy Policy and any programme-specific terms, form the entire agreement between you and Kruzer Ultraverse regarding the App.</li>
+          <li>We may assign these Terms in connection with a merger, acquisition, or sale of assets. You may not assign these Terms without our consent.</li>
+          <li>Our failure to enforce a provision of these Terms is not a waiver of our right to do so later.</li>
+        </ul>
+      </div>
+      <div class="chap" id="c20">
+        <span class="chap-eyebrow">20 &middot; Contact</span>
+        <h2>Contact us</h2>
+
+        <p>If you have any questions about these Terms, please contact us:</p>
+        <div class="contact-block">
+          <p><strong>Email:</strong> <a href="mailto:support@ultrastream.one">support@ultrastream.one</a></p>
+          <p><strong>Postal:</strong> Kruzer Ultraverse Pty Ltd (ABN 62 686 962 783), Level 13, 60 Castlereagh Street, Sydney NSW 2000, Australia</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="ft-grid">
+    <div>
+      <a class="ft-logo" href="index.html">ULTRA<span>STREAM</span></a>
+      <p class="ft-blurb">The only streaming platform where creators and fans grow together.</p>
+      <p class="ft-about-copy">UltraStream is a live streaming platform operated by Kruzer Ultraverse, forming part of the wider Ultraverse ecosystem. UltraStream allows creators to broadcast live video content and allows viewers to watch, follow, and interact with that content.</p>
+
+      <div class="ft-social">
+        <a class="soc" href="https://discord.gg/yyafp92dp2" target="_blank" rel="noopener" aria-label="Discord" title="Discord">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5h14a1.5 1.5 0 0 1 1.5 1.5v8A1.5 1.5 0 0 1 19 16.5h-5l-3.5 3v-3H5A1.5 1.5 0 0 1 3.5 15V7A1.5 1.5 0 0 1 5 5.5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="9.2" cy="11" r="1.1" fill="currentColor"/><circle cx="14.8" cy="11" r="1.1" fill="currentColor"/></svg>
+        </a>
+        <a class="soc" href="https://www.instagram.com/ultrastream.kruzer?igsh=aDJkMmk4Z2d2eWoz&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4.6" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="16.6" cy="7.4" r="1.05" fill="currentColor"/></svg>
+        </a>
+        <a class="soc" href="https://www.tiktok.com/@ultrastream.kruzer" target="_blank" rel="noopener" aria-label="TikTok" title="TikTok">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4.5v9.2a3.3 3.3 0 1 1-2.6-3.22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M14 4.5c.5 2.3 2 3.7 4.4 3.9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </a>
+        <a class="soc" href="https://facebook.com/share/14ZbBV8NhxM/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.6 20.5v-7h2.4l.4-2.8h-2.8V8.9c0-.8.2-1.35 1.35-1.35h1.5V5.05c-.26-.03-1.16-.11-2.2-.11-2.18 0-3.67 1.33-3.67 3.77v2.1H8.2v2.8h2.38v7z" fill="currentColor"/></svg>
+        </a>
+        <a class="soc" href="https://www.youtube.com/@Ultrastream-platform" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="3.4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10.6 9.6l4.2 2.4-4.2 2.4z" fill="currentColor"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="ft-col">
+      <h4>PLATFORM</h4>
+      <a href="creators.html">Creators</a>
+      <a href="viewers.html">Viewers</a>
+      <a href="giveaway.html">Mission to a Million</a>
+      <a href="about.html">About Us</a>
+      <a href="about.html#faq">FAQ</a>
+      <a href="https://discord.gg/yyafp92dp2" target="_blank" rel="noopener">Discord</a>
+    </div>
+
+    <div class="ft-col">
+      <h4>LEGAL</h4>
+      <a href="terms.html">Terms</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="community-guidelines.html">Community Guidelines</a>
+      <a href="child-safety.html">Child Safety</a>
+    </div>
+
+    <div class="ft-col">
+      <h4>GET THE APP</h4>
+      <a class="store" href="#" aria-label="Download on the App Store">
+        <svg class="store-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.2 12.4c0-2 1.6-3 1.7-3.05-.9-1.35-2.32-1.53-2.82-1.55-1.2-.12-2.34.7-2.95.7-.62 0-1.56-.68-2.56-.66-1.32.02-2.53.77-3.2 1.95-1.37 2.38-.35 5.9 1 7.83.65.95 1.43 2 2.46 1.96.99-.04 1.36-.64 2.55-.64 1.19 0 1.53.63 2.56.61 1.06-.02 1.74-.96 2.39-1.91.42-.62.76-1.28.99-1.98-1.9-.72-2.12-2.6-2.12-3.26z" fill="currentColor"/><path d="M14.4 6.35c.53-.64.88-1.53.78-2.42-.77.03-1.7.51-2.25 1.15-.49.56-.91 1.47-.8 2.34.86.07 1.74-.44 2.27-1.07z" fill="currentColor"/></svg>
+        <span class="store-txt"><small>Download on the</small>App Store</span>
+      </a>
+      <a class="store" href="#" aria-label="Get it on Google Play">
+        <svg class="store-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.4 3.3 14.9 12 4.4 20.7c-.24-.2-.4-.55-.4-1V4.3c0-.45.16-.8.4-1z" fill="currentColor" opacity=".85"/><path d="M16.9 9.9 5.6 3.1c-.3-.18-.6-.2-.85-.05L14.9 12z" fill="currentColor" opacity=".55"/><path d="M14.9 12 4.75 20.95c.25.15.55.13.85-.05l11.3-6.8z" fill="currentColor" opacity=".7"/><path d="m16.9 9.9 2.6 1.56c.62.37.62 1.11 0 1.48L16.9 14.1 14.9 12z" fill="currentColor"/></svg>
+        <span class="store-txt"><small>Get it on</small>Google Play</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="ft-address">
+    <h4>ADDRESS</h4>
+    <p><strong>Email:</strong> <a href="mailto:support@ultrastream.one">support@ultrastream.one</a></p>
+    <p><strong>Postal:</strong> Kruzer Ultraverse Pty Ltd (ABN 62 686 962 783), Level 13, 60 Castlereagh Street, Sydney NSW 2000, Australia</p>
+  </div>
+
+  <div class="ft-bottom">
+    <p>© 2026 KRUZER ULTRAVERSE PTY LTD</p>
+    <div class="ft-legal">
+      <a href="terms.html">Terms &amp; Conditions</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // highlight the chapter you are reading
+  (function(){
+    var links = Array.prototype.slice.call(document.querySelectorAll('.chapters a[href^="#"]'));
+    var chaps = links.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+    if(!chaps.length) return;
+    function onScroll(){
+      var y = window.scrollY + 160, current = 0;
+      for(var i=0;i<chaps.length;i++){ if(chaps[i].offsetTop <= y) current = i; }
+      links.forEach(function(a,i){ a.classList.toggle('active', i===current); });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
+  })();
+</script>
+
+</body>
+</html>
